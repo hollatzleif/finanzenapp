@@ -17,6 +17,10 @@ try {
     database: url.pathname.slice(1), // entferne führendes /
     user: url.username,
     password: url.password,
+    // SSL für Render und andere Cloud-Datenbanken
+    ssl: process.env.NODE_ENV === "production" ? {
+      rejectUnauthorized: false, // Render verwendet selbst-signierte Zertifikate
+    } : false,
     // Connection pool settings für bessere Fehlerbehandlung
     connectionTimeoutMillis: 10000,
     idleTimeoutMillis: 30000,
