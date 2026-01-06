@@ -164,19 +164,19 @@ export default function ExpenseOverview({
 
   const getRatingColor = (expense: Expense) => {
     if (expense.ratingStatus === "LEBENSNOTWENDIG") {
-      return "text-emerald-300";
+      return "text-[#8EB69B]";
     }
     if (expense.ratingStatus === "UNBEWERTET" || expense.ratingValue === null) {
-      return "text-slate-400";
+      return "text-[#8EB69B]";
     }
     const value = typeof expense.ratingValue === "number" 
       ? expense.ratingValue 
       : parseFloat(String(expense.ratingValue));
-    if (isNaN(value)) return "text-slate-400";
-    if (value >= 8) return "text-emerald-300";
-    if (value >= 6) return "text-yellow-300";
-    if (value >= 4) return "text-orange-300";
-    return "text-rose-300";
+    if (isNaN(value)) return "text-[#8EB69B]";
+    if (value >= 8) return "text-[#8EB69B]";
+    if (value >= 6) return "text-[#8EB69B]";
+    if (value >= 4) return "text-[#8EB69B]";
+    return "text-[#8EB69B]";
   };
 
   if (!isOpen) return null;
@@ -188,53 +188,53 @@ export default function ExpenseOverview({
   return (
     <>
       <AnimatePresence>
-        <motion.div
-          className="fixed inset-0 z-40 flex items-center justify-center bg-slate-950/90 backdrop-blur-xl"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-        >
           <motion.div
-            className="glass-panel flex h-full w-full max-w-6xl flex-col gap-4 p-5 sm:h-auto sm:max-h-[90vh] sm:p-6"
-            initial={{ y: 40, scale: 0.98 }}
-            animate={{ y: 0, scale: 1 }}
-            exit={{ y: 40, scale: 0.98 }}
-            transition={{ type: "spring", stiffness: 260, damping: 26 }}
+            className="fixed inset-0 z-40 flex items-center justify-center bg-[#051F20]/90 backdrop-blur-xl"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
           >
-            <div className="flex items-center justify-between gap-2 border-b border-slate-700/70 pb-4">
+            <motion.div
+              className="glass-panel flex h-full w-full max-w-6xl flex-col gap-4 p-5 sm:h-auto sm:max-h-[90vh] sm:p-6"
+              initial={{ y: 40, scale: 0.98 }}
+              animate={{ y: 0, scale: 1 }}
+              exit={{ y: 40, scale: 0.98 }}
+              transition={{ type: "spring", stiffness: 260, damping: 26 }}
+            >
+            <div className="flex items-center justify-between gap-2 border-b border-[#235347]/70 pb-4">
               <div>
-                <span className="tech-label text-slate-400">
+                <span className="tech-label text-[#8EB69B]">
                   VERGANGENE AUSGABEN
                 </span>
-                <p className="mt-1 text-xs text-slate-300">
+                <p className="mt-1 text-xs text-[#DAF1DE]">
                   Alle Abbuchungen des ausgewählten Monats
                 </p>
               </div>
               <button
                 onClick={onClose}
-                className="rounded-full border border-slate-600/80 bg-slate-900/80 px-2 py-1 text-[10px] uppercase tracking-[0.18em] text-slate-400 hover:border-rose-500/80 hover:text-rose-200"
+                className="rounded-full border border-[#235347]/80 bg-[#163832]/80 px-2 py-1 text-[10px] uppercase tracking-[0.18em] text-[#8EB69B] hover:border-[#8EB69B]/80 hover:text-[#DAF1DE]"
               >
                 SCHLIESSEN
               </button>
             </div>
 
             {/* Monats-Regler */}
-            <div className="flex items-center justify-between gap-3 rounded-2xl border border-slate-700/80 bg-slate-900/80 px-4 py-3">
+            <div className="flex items-center justify-between gap-3 rounded-2xl border border-[#235347]/80 bg-[#163832]/80 px-4 py-3">
               <button
                 onClick={handlePreviousMonth}
-                className="rounded-xl border border-slate-600/80 bg-slate-950/80 px-3 py-1.5 text-sm text-slate-300 hover:border-slate-500/80 hover:bg-slate-800/80 disabled:cursor-not-allowed disabled:opacity-50"
+                className="rounded-xl border border-[#235347]/80 bg-[#051F20]/80 px-3 py-1.5 text-sm text-[#DAF1DE] hover:border-[#235347]/80 hover:bg-[#163832]/80 disabled:cursor-not-allowed disabled:opacity-50"
                 disabled={false}
               >
                 ←
               </button>
               <div className="flex-1 text-center">
-                <span className="text-sm font-semibold text-slate-50">
+                <span className="text-sm font-semibold text-[#DAF1DE]">
                   {monthName || formatMonthKey(monthKey)}
                 </span>
               </div>
               <button
                 onClick={handleNextMonth}
-                className="rounded-xl border border-slate-600/80 bg-slate-950/80 px-3 py-1.5 text-sm text-slate-300 hover:border-slate-500/80 hover:bg-slate-800/80 disabled:cursor-not-allowed disabled:opacity-50"
+                className="rounded-xl border border-[#235347]/80 bg-[#051F20]/80 px-3 py-1.5 text-sm text-[#DAF1DE] hover:border-[#235347]/80 hover:bg-[#163832]/80 disabled:cursor-not-allowed disabled:opacity-50"
                 disabled={!canGoNext}
               >
                 →
@@ -242,7 +242,7 @@ export default function ExpenseOverview({
             </div>
 
             <div className="flex items-center justify-between gap-3">
-              <span className="tech-label text-slate-400">SORTIEREN NACH:</span>
+              <span className="tech-label text-[#8EB69B]">SORTIEREN NACH:</span>
               <select
                 value={sortOptions.findIndex(
                   (opt) =>
@@ -250,7 +250,7 @@ export default function ExpenseOverview({
                     opt.order === sortOption.order
                 )}
                 onChange={(e) => setSortOption(sortOptions[Number(e.target.value)])}
-                className="rounded-xl border border-slate-700/80 bg-slate-900/80 px-3 py-1.5 text-xs text-slate-100 outline-none"
+                className="rounded-xl border border-[#235347]/80 bg-[#163832]/80 px-3 py-1.5 text-xs text-[#DAF1DE] outline-none"
               >
                 {sortOptions.map((opt, idx) => (
                   <option key={idx} value={idx}>
@@ -262,10 +262,10 @@ export default function ExpenseOverview({
 
             <div className="flex-1 overflow-y-auto">
               {loading ? (
-                <p className="text-xs text-slate-400">Lade …</p>
+                <p className="text-xs text-[#8EB69B]">Lade …</p>
               ) : expenses.length === 0 ? (
                 <div className="flex flex-col items-center justify-center py-12">
-                  <p className="text-sm text-slate-300">
+                  <p className="text-sm text-[#DAF1DE]">
                     Keine Ausgaben in diesem Monat.
                   </p>
                 </div>
@@ -275,23 +275,23 @@ export default function ExpenseOverview({
                     <motion.button
                       key={expense.id}
                       onClick={() => handleExpenseClick(expense)}
-                      className="group rounded-2xl border border-slate-700/80 bg-slate-900/80 p-3 text-left transition hover:border-slate-600/80 hover:bg-slate-800/80"
+                      className="group rounded-2xl border border-[#235347]/80 bg-[#163832]/80 p-3 text-left transition hover:border-[#235347]/80 hover:bg-[#235347]/80"
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                     >
                       <div className="flex items-start justify-between gap-2">
                         <div className="flex-1">
-                          <p className="text-sm font-medium text-slate-50">
+                          <p className="text-sm font-medium text-[#DAF1DE]">
                             {expense.purposeSnapshot}
                           </p>
-                          <p className="mt-1 text-sm text-sky-300">
+                          <p className="mt-1 text-sm text-[#8EB69B]">
                             {expense.amountSnapshot.toLocaleString("de-DE", {
                               minimumFractionDigits: 2,
                               maximumFractionDigits: 2,
                             })}{" "}
                             €
                           </p>
-                          <p className="mt-1 text-[11px] text-slate-400">
+                          <p className="mt-1 text-[11px] text-[#8EB69B]">
                             {formatDate(expense.chargedAt)}
                           </p>
                         </div>
@@ -302,7 +302,7 @@ export default function ExpenseOverview({
                             {formatRating(expense)}
                           </span>
                           {expense.isRecurringSnapshot && (
-                            <span className="text-[10px] text-slate-500">
+                            <span className="text-[10px] text-[#235347]">
                               wiederkehrend
                             </span>
                           )}

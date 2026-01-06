@@ -249,7 +249,7 @@ export default function ExpenseDetail({
   return (
     <AnimatePresence>
       <motion.div
-        className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/95 backdrop-blur-xl"
+        className="fixed inset-0 z-50 flex items-center justify-center bg-[#051F20]/95 backdrop-blur-xl"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
@@ -263,26 +263,26 @@ export default function ExpenseDetail({
           transition={{ type: "spring", stiffness: 260, damping: 26 }}
           onClick={(e) => e.stopPropagation()}
         >
-          <div className="flex items-center justify-between gap-2 border-b border-slate-700/70 pb-3">
+          <div className="flex items-center justify-between gap-2 border-b border-[#235347]/70 pb-3">
             <div>
-              <span className="tech-label text-slate-400">AUSGABE DETAIL</span>
-              <p className="mt-1 text-sm font-medium text-slate-50">
+              <span className="tech-label text-[#8EB69B]">AUSGABE DETAIL</span>
+              <p className="mt-1 text-sm font-medium text-[#DAF1DE]">
                 {expense.purposeSnapshot}
               </p>
             </div>
             <button
               onClick={onClose}
-              className="rounded-full border border-slate-600/80 bg-slate-900/80 px-2 py-1 text-[10px] uppercase tracking-[0.18em] text-slate-400 hover:border-rose-500/80 hover:text-rose-200"
+              className="rounded-full border border-[#235347]/80 bg-[#163832]/80 px-2 py-1 text-[10px] uppercase tracking-[0.18em] text-[#8EB69B] hover:border-[#8EB69B]/80 hover:text-[#DAF1DE]"
             >
               SCHLIESSEN
             </button>
           </div>
 
           <div className="flex flex-col gap-3">
-            <div className="rounded-2xl border border-slate-700/80 bg-slate-900/80 px-4 py-3">
+            <div className="rounded-2xl border border-[#235347]/80 bg-[#163832]/80 px-4 py-3">
               <div className="flex items-center justify-between">
-                <span className="tech-label text-slate-400">BETRAG</span>
-                <span className="text-lg font-semibold text-sky-300">
+                <span className="tech-label text-[#8EB69B]">BETRAG</span>
+                <span className="text-lg font-semibold text-[#8EB69B]">
                   {expense.amountSnapshot.toLocaleString("de-DE", {
                     minimumFractionDigits: 2,
                     maximumFractionDigits: 2,
@@ -291,21 +291,21 @@ export default function ExpenseDetail({
                 </span>
               </div>
               <div className="mt-2 flex items-center justify-between">
-                <span className="tech-label text-slate-400">DATUM</span>
-                <span className="text-sm text-slate-300">
+                <span className="tech-label text-[#8EB69B]">DATUM</span>
+                <span className="text-sm text-[#DAF1DE]">
                   {formatDate(expense.chargedAt)}
                 </span>
               </div>
               <div className="mt-2 flex items-center justify-between">
-                <span className="tech-label text-slate-400">BEWERTUNG</span>
-                <span className="text-sm font-medium text-slate-100">
+                <span className="tech-label text-[#8EB69B]">BEWERTUNG</span>
+                <span className="text-sm font-medium text-[#DAF1DE]">
                   {formatRating()}
                 </span>
               </div>
               {expense.isRecurringSnapshot && (
                 <div className="mt-2 flex items-center justify-between">
-                  <span className="tech-label text-slate-400">TYP</span>
-                  <span className="text-sm text-slate-300">
+                  <span className="tech-label text-[#8EB69B]">TYP</span>
+                  <span className="text-sm text-[#DAF1DE]">
                     Wiederkehrend ({expense.intervalSnapshot})
                   </span>
                 </div>
@@ -313,7 +313,7 @@ export default function ExpenseDetail({
             </div>
 
             {error && (
-              <div className="rounded-xl border border-rose-500/70 bg-rose-950/40 px-3 py-2 text-xs text-rose-100">
+              <div className="rounded-xl border border-[#8EB69B]/70 bg-[#0B2B26]/40 px-3 py-2 text-xs text-[#DAF1DE]">
                 {error}
               </div>
             )}
@@ -323,7 +323,7 @@ export default function ExpenseDetail({
                 {isCurrentMonth && (
                   <button
                     onClick={() => setShowRatingForm(true)}
-                    className="rounded-2xl border border-indigo-400/80 bg-indigo-500/20 px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-indigo-100 hover:bg-indigo-500/30"
+                    className="rounded-2xl border border-[#8EB69B]/80 bg-[#8EB69B]/20 px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#DAF1DE] hover:bg-[#8EB69B]/30"
                   >
                     BEWERTUNG ÄNDERN
                   </button>
@@ -331,7 +331,7 @@ export default function ExpenseDetail({
                 {expense.isRecurringSnapshot && (isCurrentMonth || canCancelRecurring) && (
                   <button
                     onClick={() => setShowStopConfirm(true)}
-                    className="rounded-2xl border border-amber-400/80 bg-amber-500/20 px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-amber-100 hover:bg-amber-500/30"
+                    className="rounded-2xl border border-[#8EB69B]/80 bg-[#8EB69B]/20 px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#DAF1DE] hover:bg-[#8EB69B]/30"
                     disabled={loadingNextCharge}
                   >
                     {canCancelRecurring && !isCurrentMonth
@@ -342,13 +342,13 @@ export default function ExpenseDetail({
                 {isCurrentMonth && (
                   <button
                     onClick={() => setShowDeleteConfirm(true)}
-                    className="rounded-2xl border border-rose-400/80 bg-rose-500/20 px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-rose-100 hover:bg-rose-500/30"
+                    className="rounded-2xl border border-[#8EB69B]/80 bg-[#8EB69B]/20 px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#DAF1DE] hover:bg-[#8EB69B]/30"
                   >
                     ABBUCHUNG LÖSCHEN
                   </button>
                 )}
                 {!isCurrentMonth && !expense.isRecurringSnapshot && (
-                  <p className="text-xs text-slate-400">
+                  <p className="text-xs text-[#8EB69B]">
                     Ausgaben aus vergangenen Monaten können nicht bearbeitet werden.
                   </p>
                 )}
@@ -357,7 +357,7 @@ export default function ExpenseDetail({
 
             {showRatingForm && (
               <div className="flex flex-col gap-3">
-                <span className="tech-label text-slate-400">
+                <span className="tech-label text-[#8EB69B]">
                   BEWERTUNG ÄNDERN
                 </span>
                 <SliderRow
@@ -389,7 +389,7 @@ export default function ExpenseDetail({
                   }
                 />
                 <div className="flex flex-col gap-2">
-                  <span className="tech-label text-slate-400">
+                  <span className="tech-label text-[#8EB69B]">
                     WIE ENTSTAND DIESE AUSGABE?
                   </span>
                   <div className="flex gap-2">
@@ -403,8 +403,8 @@ export default function ExpenseDetail({
                       }
                       className={`flex-1 rounded-2xl border px-3 py-2 text-[11px] uppercase tracking-[0.16em] ${
                         ratingState.q5Planned === "DURCHDACHT"
-                          ? "border-emerald-400/80 bg-emerald-500/20 text-emerald-100"
-                          : "border-slate-700/80 bg-slate-900/80 text-slate-300"
+                          ? "border-[#8EB69B]/80 bg-[#8EB69B]/20 text-[#DAF1DE]"
+                          : "border-[#235347]/80 bg-[#163832]/80 text-[#DAF1DE]"
                       }`}
                     >
                       DURCHDACHT
@@ -419,8 +419,8 @@ export default function ExpenseDetail({
                       }
                       className={`flex-1 rounded-2xl border px-3 py-2 text-[11px] uppercase tracking-[0.16em] ${
                         ratingState.q5Planned === "AFFEKTIV"
-                          ? "border-amber-400/80 bg-amber-500/15 text-amber-100"
-                          : "border-slate-700/80 bg-slate-900/80 text-slate-300"
+                          ? "border-[#8EB69B]/80 bg-[#8EB69B]/15 text-[#DAF1DE]"
+                          : "border-[#235347]/80 bg-[#163832]/80 text-[#DAF1DE]"
                       }`}
                     >
                       AFFEKTIV
@@ -432,7 +432,7 @@ export default function ExpenseDetail({
                     type="button"
                     onClick={() => handleUpdateRating(false)}
                     disabled={ratingBusy}
-                    className="flex-1 rounded-2xl border border-indigo-400/80 bg-indigo-500/20 px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-indigo-100 hover:bg-indigo-500/30 disabled:cursor-not-allowed disabled:opacity-60"
+                    className="flex-1 rounded-2xl border border-[#8EB69B]/80 bg-[#8EB69B]/20 px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#DAF1DE] hover:bg-[#8EB69B]/30 disabled:cursor-not-allowed disabled:opacity-60"
                   >
                     {ratingBusy ? "SPEICHERE …" : "BEWERTUNG SPEICHERN"}
                   </button>
@@ -440,7 +440,7 @@ export default function ExpenseDetail({
                     type="button"
                     onClick={() => handleUpdateRating(true)}
                     disabled={ratingBusy}
-                    className="flex-1 rounded-2xl border border-emerald-400/80 bg-emerald-500/20 px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-emerald-100 hover:bg-emerald-500/30 disabled:cursor-not-allowed disabled:opacity-60"
+                    className="flex-1 rounded-2xl border border-[#8EB69B]/80 bg-[#8EB69B]/20 px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#DAF1DE] hover:bg-[#8EB69B]/30 disabled:cursor-not-allowed disabled:opacity-60"
                   >
                     LEBENSNOTWENDIGE AUSGABE
                   </button>
@@ -448,7 +448,7 @@ export default function ExpenseDetail({
                 <button
                   type="button"
                   onClick={() => setShowRatingForm(false)}
-                  className="rounded-2xl border border-slate-700/80 bg-slate-900/80 px-3 py-2 text-[11px] uppercase tracking-[0.18em] text-slate-400"
+                  className="rounded-2xl border border-[#235347]/80 bg-[#163832]/80 px-3 py-2 text-[11px] uppercase tracking-[0.18em] text-[#8EB69B]"
                 >
                   ABBRECHEN
                 </button>
@@ -457,7 +457,7 @@ export default function ExpenseDetail({
 
             {showStopConfirm && (
               <div className="flex flex-col gap-3">
-                <p className="text-sm text-slate-300">
+                <p className="text-sm text-[#DAF1DE]">
                   {canCancelRecurring && !isCurrentMonth
                     ? "Diese wiederkehrende Ausgabe wird ab der nächsten Fälligkeit nicht mehr abgebucht. Bereits existierende Abbuchungen bleiben unverändert."
                     : "Diese Ausgabe wird ab dem nächsten Monat nicht mehr abgebucht. Bereits existierende Abbuchungen bleiben unverändert."}
@@ -466,13 +466,13 @@ export default function ExpenseDetail({
                   <button
                     onClick={handleStopRecurring}
                     disabled={stopBusy}
-                    className="flex-1 rounded-2xl border border-amber-400/80 bg-amber-500/20 px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-amber-100 hover:bg-amber-500/30 disabled:cursor-not-allowed disabled:opacity-60"
+                    className="flex-1 rounded-2xl border border-[#8EB69B]/80 bg-[#8EB69B]/20 px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#DAF1DE] hover:bg-[#8EB69B]/30 disabled:cursor-not-allowed disabled:opacity-60"
                   >
                     {stopBusy ? "VERARBEITE …" : "BESTÄTIGEN"}
                   </button>
                   <button
                     onClick={() => setShowStopConfirm(false)}
-                    className="flex-1 rounded-2xl border border-slate-700/80 bg-slate-900/80 px-3 py-2 text-[11px] uppercase tracking-[0.18em] text-slate-400"
+                    className="flex-1 rounded-2xl border border-[#235347]/80 bg-[#163832]/80 px-3 py-2 text-[11px] uppercase tracking-[0.18em] text-[#8EB69B]"
                   >
                     ABBRECHEN
                   </button>
@@ -482,7 +482,7 @@ export default function ExpenseDetail({
 
             {showDeleteConfirm && (
               <div className="flex flex-col gap-3">
-                <p className="text-sm text-slate-300">
+                <p className="text-sm text-[#DAF1DE]">
                   Diese Abbuchung wirklich löschen? Diese Aktion kann nicht
                   rückgängig gemacht werden.
                 </p>
@@ -490,13 +490,13 @@ export default function ExpenseDetail({
                   <button
                     onClick={handleDelete}
                     disabled={deleteBusy}
-                    className="flex-1 rounded-2xl border border-rose-400/80 bg-rose-500/20 px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-rose-100 hover:bg-rose-500/30 disabled:cursor-not-allowed disabled:opacity-60"
+                    className="flex-1 rounded-2xl border border-[#8EB69B]/80 bg-[#8EB69B]/20 px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#DAF1DE] hover:bg-[#8EB69B]/30 disabled:cursor-not-allowed disabled:opacity-60"
                   >
                     {deleteBusy ? "LÖSCHE …" : "LÖSCHEN"}
                   </button>
                   <button
                     onClick={() => setShowDeleteConfirm(false)}
-                    className="flex-1 rounded-2xl border border-slate-700/80 bg-slate-900/80 px-3 py-2 text-[11px] uppercase tracking-[0.18em] text-slate-400"
+                    className="flex-1 rounded-2xl border border-[#235347]/80 bg-[#163832]/80 px-3 py-2 text-[11px] uppercase tracking-[0.18em] text-[#8EB69B]"
                   >
                     ABBRECHEN
                   </button>
@@ -519,7 +519,7 @@ type SliderRowProps = {
 function SliderRow({ label, value, onChange }: SliderRowProps) {
   return (
     <div className="flex flex-col gap-1.5">
-      <span className="tech-label text-slate-400">{label}</span>
+      <span className="tech-label text-[#8EB69B]">{label}</span>
       <div className="flex items-center gap-3">
         <input
           type="range"
@@ -528,9 +528,9 @@ function SliderRow({ label, value, onChange }: SliderRowProps) {
           step={1}
           value={value}
           onChange={(e) => onChange(Number(e.target.value))}
-          className="flex-1 accent-cyan-400"
+          className="flex-1 accent-[#8EB69B]"
         />
-        <span className="w-10 rounded-full border border-slate-700/80 bg-slate-950/80 py-1 text-center text-xs text-slate-100">
+        <span className="w-10 rounded-full border border-[#235347]/80 bg-[#051F20]/80 py-1 text-center text-xs text-[#DAF1DE]">
           {value}
         </span>
       </div>
@@ -547,15 +547,15 @@ type ToggleRowProps = {
 function ToggleRow({ label, value, onChange }: ToggleRowProps) {
   return (
     <div className="flex flex-col gap-1.5">
-      <span className="tech-label text-slate-400">{label}</span>
+      <span className="tech-label text-[#8EB69B]">{label}</span>
       <div className="flex gap-2">
         <button
           type="button"
           onClick={() => onChange(true)}
           className={`flex-1 rounded-2xl border px-3 py-1.5 text-[11px] uppercase tracking-[0.16em] ${
             value === true
-              ? "border-emerald-400/80 bg-emerald-500/20 text-emerald-100"
-              : "border-slate-700/80 bg-slate-900/80 text-slate-300"
+              ? "border-[#8EB69B]/80 bg-[#8EB69B]/20 text-[#DAF1DE]"
+              : "border-[#235347]/80 bg-[#163832]/80 text-[#DAF1DE]"
           }`}
         >
           JA
@@ -565,8 +565,8 @@ function ToggleRow({ label, value, onChange }: ToggleRowProps) {
           onClick={() => onChange(false)}
           className={`flex-1 rounded-2xl border px-3 py-1.5 text-[11px] uppercase tracking-[0.16em] ${
             value === false
-              ? "border-rose-400/80 bg-rose-500/20 text-rose-100"
-              : "border-slate-700/80 bg-slate-900/80 text-slate-300"
+              ? "border-[#8EB69B]/80 bg-[#8EB69B]/20 text-[#DAF1DE]"
+              : "border-[#235347]/80 bg-[#163832]/80 text-[#DAF1DE]"
           }`}
         >
           NEIN

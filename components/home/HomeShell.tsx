@@ -292,35 +292,35 @@ export default function HomeShell() {
       {/* Top Bar */}
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex flex-col gap-1">
-          <span className="tech-label text-sky-400/70">
+          <span className="tech-label text-[#8EB69B]/70">
             FINANZAPP // MONATSÜBERSICHT
           </span>
           <div className="flex items-baseline gap-3">
-            <h1 className="text-2xl font-semibold tracking-[0.24em] text-slate-100 sm:text-3xl">
+            <h1 className="text-2xl font-semibold tracking-[0.24em] text-[#DAF1DE] sm:text-3xl">
               DEIN GELDFLUSS
             </h1>
           </div>
         </div>
 
         <div className="flex items-center gap-2">
-          <div className="rounded-2xl border border-slate-700/80 bg-slate-900/80 px-3 py-2 text-xs text-slate-300">
+          <div className="rounded-2xl border border-[#235347]/80 bg-[#163832]/80 px-3 py-2 text-xs text-[#DAF1DE]">
             <div className="flex items-center justify-between gap-3">
-              <span className="tech-label text-[0.65rem] text-slate-400">
+              <span className="tech-label text-[0.65rem] text-[#8EB69B]">
                 AKTUELLER MONAT
               </span>
               {summary && (
-                <span className="rounded-full border border-emerald-400/60 bg-emerald-500/10 px-2 py-0.5 text-[0.64rem] uppercase tracking-[0.18em] text-emerald-200">
+                <span className="rounded-full border border-[#8EB69B]/60 bg-[#8EB69B]/10 px-2 py-0.5 text-[0.64rem] uppercase tracking-[0.18em] text-[#DAF1DE]">
                   {summary.countUnrated} UNBEWERTET
                 </span>
               )}
             </div>
-            <div className="mt-1 text-sm font-medium text-slate-50">
+            <div className="mt-1 text-sm font-medium text-[#DAF1DE]">
               {loadingSummary ? "Lädt …" : monthSummaryLabel}
             </div>
           </div>
           <button
             onClick={handleLogout}
-            className="hidden rounded-xl border border-slate-700/80 bg-slate-900/80 px-3 py-2 text-[10px] uppercase tracking-[0.16em] text-slate-400 hover:border-rose-500/80 hover:text-rose-200 sm:block"
+            className="hidden rounded-xl border border-[#235347]/80 bg-[#163832]/80 px-3 py-2 text-[10px] uppercase tracking-[0.16em] text-[#8EB69B] hover:border-[#8EB69B]/80 hover:text-[#DAF1DE] sm:block"
           >
             ABMELDEN
           </button>
@@ -331,39 +331,39 @@ export default function HomeShell() {
       <div className="glass-panel flex flex-col gap-5 p-5 sm:p-7">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex flex-col gap-1">
-            <span className="tech-label text-slate-400">
+            <span className="tech-label text-[#8EB69B]">
               HANDLUNGSFELDER DIESES MONATS
             </span>
-            <p className="text-sm text-slate-300">
+            <p className="text-sm text-[#DAF1DE]">
               Trage Ausgaben ein, beobachte dein Verhalten und bewerte, was sich{" "}
-              <span className="text-sky-300">wirklich gut</span> anfühlt – und
+              <span className="text-[#8EB69B]">wirklich gut</span> anfühlt – und
               was vielleicht nur{" "}
-              <span className="text-indigo-300">Gewohnheit</span> ist.
+              <span className="text-[#8EB69B]">Gewohnheit</span> ist.
             </p>
           </div>
           <div className="flex flex-wrap gap-2">
             <button
               onClick={() => setDrawerOpen(true)}
-              className="inline-flex items-center justify-center rounded-2xl border border-cyan-400/70 bg-cyan-500/10 px-3.5 py-2 text-xs font-semibold uppercase tracking-[0.21em] text-cyan-200 shadow-[0_0_18px_rgba(56,189,248,0.5)] hover:bg-cyan-500/20"
+              className="inline-flex items-center justify-center rounded-2xl border border-[#8EB69B]/70 bg-[#8EB69B]/10 px-3.5 py-2 text-xs font-semibold uppercase tracking-[0.21em] text-[#DAF1DE] shadow-[0_0_18px_rgba(142,182,155,0.5)] hover:bg-[#8EB69B]/20"
             >
               AUSGABE HINZUFÜGEN
             </button>
             <button
               onClick={handleOpenRating}
-              className="inline-flex items-center justify-center rounded-2xl border border-indigo-400/70 bg-indigo-500/10 px-3.5 py-2 text-xs font-semibold uppercase tracking-[0.21em] text-indigo-200 hover:bg-indigo-500/20 disabled:cursor-not-allowed disabled:opacity-50"
+              className="inline-flex items-center justify-center rounded-2xl border border-[#8EB69B]/70 bg-[#8EB69B]/10 px-3.5 py-2 text-xs font-semibold uppercase tracking-[0.21em] text-[#DAF1DE] hover:bg-[#8EB69B]/20 disabled:cursor-not-allowed disabled:opacity-50"
               disabled={summary?.countUnrated === 0}
             >
               AUSGABEN BEWERTEN
             </button>
             <button
               onClick={() => setOverviewOpen(true)}
-              className="inline-flex items-center justify-center rounded-2xl border border-purple-400/70 bg-purple-500/10 px-3.5 py-2 text-xs font-semibold uppercase tracking-[0.21em] text-purple-200 hover:bg-purple-500/20"
+              className="inline-flex items-center justify-center rounded-2xl border border-[#8EB69B]/70 bg-[#8EB69B]/10 px-3.5 py-2 text-xs font-semibold uppercase tracking-[0.21em] text-[#DAF1DE] hover:bg-[#8EB69B]/20"
             >
               VERGANGENE AUSGABEN
             </button>
             <button
               onClick={() => setStatisticsOpen(true)}
-              className="inline-flex items-center justify-center rounded-2xl border border-emerald-400/70 bg-emerald-500/10 px-3.5 py-2 text-xs font-semibold uppercase tracking-[0.21em] text-emerald-200 hover:bg-emerald-500/20"
+              className="inline-flex items-center justify-center rounded-2xl border border-[#8EB69B]/70 bg-[#8EB69B]/10 px-3.5 py-2 text-xs font-semibold uppercase tracking-[0.21em] text-[#DAF1DE] hover:bg-[#8EB69B]/20"
             >
               STATISTIKEN
             </button>
@@ -372,11 +372,11 @@ export default function HomeShell() {
 
         {/* Kleinere Kennzahlen */}
         <div className="grid gap-3 sm:grid-cols-3">
-          <div className="rounded-2xl border border-slate-700/80 bg-slate-900/80 px-4 py-3">
-            <span className="tech-label text-[0.68rem] text-slate-400">
+          <div className="rounded-2xl border border-[#235347]/80 bg-[#163832]/80 px-4 py-3">
+            <span className="tech-label text-[0.68rem] text-[#8EB69B]">
               MONATLICHE SUMME
             </span>
-            <p className="mt-1 text-xl font-semibold text-slate-50">
+            <p className="mt-1 text-xl font-semibold text-[#DAF1DE]">
               {summary
                 ? `${summary.totalSpent.toLocaleString("de-DE", {
                     minimumFractionDigits: 2,
@@ -385,19 +385,19 @@ export default function HomeShell() {
                 : "–"}
             </p>
           </div>
-          <div className="rounded-2xl border border-slate-700/80 bg-slate-900/80 px-4 py-3">
-            <span className="tech-label text-[0.68rem] text-slate-400">
+          <div className="rounded-2xl border border-[#235347]/80 bg-[#163832]/80 px-4 py-3">
+            <span className="tech-label text-[0.68rem] text-[#8EB69B]">
               UNBEWERTET
             </span>
-            <p className="mt-1 text-xl font-semibold text-amber-300">
+            <p className="mt-1 text-xl font-semibold text-[#8EB69B]">
               {summary ? summary.countUnrated : "–"}
             </p>
           </div>
-          <div className="rounded-2xl border border-slate-700/80 bg-slate-900/80 px-4 py-3">
-            <span className="tech-label text-[0.68rem] text-slate-400">
+          <div className="rounded-2xl border border-[#235347]/80 bg-[#163832]/80 px-4 py-3">
+            <span className="tech-label text-[0.68rem] text-[#8EB69B]">
               FOKUS
             </span>
-            <p className="mt-1 text-xs text-slate-300">
+            <p className="mt-1 text-xs text-[#DAF1DE]">
               Wiederkehrende Ausgaben werden automatisch zum Fälligkeitstag
               erzeugt. Du siehst hier immer den aktuellen Monat.
             </p>
@@ -409,13 +409,13 @@ export default function HomeShell() {
       <AnimatePresence>
         {drawerOpen && (
           <motion.div
-            className="fixed inset-0 z-40 flex items-end justify-center bg-slate-950/70 backdrop-blur-md sm:items-center"
+            className="fixed inset-0 z-40 flex items-end justify-center bg-[#051F20]/70 backdrop-blur-md sm:items-center"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           >
             <motion.div
-              className="w-full max-w-lg rounded-t-3xl border border-slate-700/80 bg-slate-950/95 p-5 shadow-[0_0_40px_rgba(15,23,42,0.95)] sm:rounded-3xl sm:border-slate-600/80 sm:p-6"
+              className="w-full max-w-lg rounded-t-3xl border border-[#235347]/80 bg-[#051F20]/95 p-5 shadow-[0_0_40px_rgba(5,31,32,0.95)] sm:rounded-3xl sm:border-[#235347]/80 sm:p-6"
               initial={{ y: 80 }}
               animate={{ y: 0 }}
               exit={{ y: 80 }}
@@ -423,16 +423,16 @@ export default function HomeShell() {
             >
               <div className="mb-3 flex items-center justify-between">
                 <div>
-                  <span className="tech-label text-slate-400">
+                  <span className="tech-label text-[#8EB69B]">
                     NEUE AUSGABE
                   </span>
-                  <p className="mt-1 text-sm text-slate-200">
+                  <p className="mt-1 text-sm text-[#DAF1DE]">
                     Erfasse eine einmalige oder wiederkehrende Abbuchung.
                   </p>
                 </div>
                 <button
                   onClick={() => setDrawerOpen(false)}
-                  className="rounded-full border border-slate-600/80 bg-slate-900/80 px-2 py-1 text-[10px] uppercase tracking-[0.18em] text-slate-400 hover:border-rose-500/80 hover:text-rose-200"
+                  className="rounded-full border border-[#235347]/80 bg-[#163832]/80 px-2 py-1 text-[10px] uppercase tracking-[0.18em] text-[#8EB69B] hover:border-[#8EB69B]/80 hover:text-[#DAF1DE]"
                 >
                   SCHLIESSEN
                 </button>
@@ -441,7 +441,7 @@ export default function HomeShell() {
               <form onSubmit={handleCreateExpense} className="flex flex-col gap-4">
                 <div className="flex gap-3">
                   <div className="flex-1">
-                    <label className="tech-label text-slate-400" htmlFor="amount">
+                    <label className="tech-label text-[#8EB69B]" htmlFor="amount">
                       BETRAG
                     </label>
                     <input
@@ -450,12 +450,12 @@ export default function HomeShell() {
                       inputMode="decimal"
                       value={amount}
                       onChange={(e) => setAmount(e.target.value)}
-                      className="mt-1 w-full rounded-2xl border border-slate-700/80 bg-slate-900/80 px-3 py-2 text-sm text-slate-100 outline-none placeholder:text-slate-500"
+                      className="mt-1 w-full rounded-2xl border border-[#235347]/80 bg-[#163832]/80 px-3 py-2 text-sm text-[#DAF1DE] outline-none placeholder:text-[#235347]"
                       placeholder="z.B. 42,50"
                     />
                   </div>
                   <div className="flex-1">
-                    <label className="tech-label text-slate-400" htmlFor="purpose">
+                    <label className="tech-label text-[#8EB69B]" htmlFor="purpose">
                       ZWECK
                     </label>
                     <input
@@ -463,33 +463,33 @@ export default function HomeShell() {
                       type="text"
                       value={purpose}
                       onChange={(e) => setPurpose(e.target.value)}
-                      className="mt-1 w-full rounded-2xl border border-slate-700/80 bg-slate-900/80 px-3 py-2 text-sm text-slate-100 outline-none placeholder:text-slate-500"
+                      className="mt-1 w-full rounded-2xl border border-[#235347]/80 bg-[#163832]/80 px-3 py-2 text-sm text-[#DAF1DE] outline-none placeholder:text-[#235347]"
                       placeholder="z.B. Netflix, Miete, Kaffee"
                     />
                   </div>
                 </div>
 
-                <div className="flex flex-col gap-2 rounded-2xl border border-slate-700/80 bg-slate-900/80 px-3 py-2">
+                <div className="flex flex-col gap-2 rounded-2xl border border-[#235347]/80 bg-[#163832]/80 px-3 py-2">
                   <label className="flex items-center justify-between gap-2">
-                    <span className="tech-label text-slate-400">
+                    <span className="tech-label text-[#8EB69B]">
                       REGELMÄSSIG?
                     </span>
                     <button
                       type="button"
                       onClick={() => setIsRecurring((v) => !v)}
-                      className={`relative inline-flex h-6 w-11 items-center rounded-full border border-slate-600/80 bg-slate-950/80 px-0.5 transition ${
-                        isRecurring ? "border-cyan-400/80" : ""
+                      className={`relative inline-flex h-6 w-11 items-center rounded-full border border-[#235347]/80 bg-[#051F20]/80 px-0.5 transition ${
+                        isRecurring ? "border-[#8EB69B]/80" : ""
                       }`}
                     >
                       <motion.div
-                        className={`h-4 w-4 rounded-full bg-slate-300 shadow-md`}
+                        className={`h-4 w-4 rounded-full bg-[#DAF1DE] shadow-md`}
                         layout
                         transition={{ type: "spring", stiffness: 320, damping: 26 }}
                       />
                     </button>
                   </label>
                   {isRecurring && (
-                    <div className="mt-1 flex items-center gap-2 text-xs text-slate-300">
+                    <div className="mt-1 flex items-center gap-2 text-xs text-[#DAF1DE]">
                       <span>Intervall:</span>
                       <input
                         type="number"
@@ -500,7 +500,7 @@ export default function HomeShell() {
                             Math.max(1, Number(e.target.value) || 1)
                           )
                         }
-                        className="w-14 rounded-xl border border-slate-700/80 bg-slate-950/80 px-2 py-1 text-right text-xs outline-none"
+                        className="w-14 rounded-xl border border-[#235347]/80 bg-[#051F20]/80 px-2 py-1 text-right text-xs outline-none"
                       />
                       <select
                         value={intervalType}
@@ -513,7 +513,7 @@ export default function HomeShell() {
                               | "JAHRE"
                           )
                         }
-                        className="flex-1 rounded-xl border border-slate-700/80 bg-slate-950/80 px-2 py-1 text-xs outline-none"
+                        className="flex-1 rounded-xl border border-[#235347]/80 bg-[#051F20]/80 px-2 py-1 text-xs outline-none"
                       >
                         <option value="TAGE">Tage</option>
                         <option value="WOCHEN">Wochen</option>
@@ -525,7 +525,7 @@ export default function HomeShell() {
                 </div>
 
                 {createError && (
-                  <div className="rounded-xl border border-rose-500/70 bg-rose-950/40 px-3 py-2 text-xs text-rose-100">
+                  <div className="rounded-xl border border-[#8EB69B]/70 bg-[#0B2B26]/40 px-3 py-2 text-xs text-[#DAF1DE]">
                     {createError}
                   </div>
                 )}
@@ -533,7 +533,7 @@ export default function HomeShell() {
                 <button
                   type="submit"
                   disabled={submittingExpense}
-                  className="mt-1 inline-flex items-center justify-center rounded-2xl border border-emerald-400/70 bg-emerald-500/15 px-4 py-2.5 text-xs font-semibold uppercase tracking-[0.2em] text-emerald-100 shadow-[0_0_18px_rgba(34,197,94,0.6)] hover:bg-emerald-500/25 disabled:cursor-not-allowed disabled:opacity-60"
+                  className="mt-1 inline-flex items-center justify-center rounded-2xl border border-[#8EB69B]/70 bg-[#8EB69B]/15 px-4 py-2.5 text-xs font-semibold uppercase tracking-[0.2em] text-[#DAF1DE] shadow-[0_0_18px_rgba(142,182,155,0.6)] hover:bg-[#8EB69B]/25 disabled:cursor-not-allowed disabled:opacity-60"
                 >
                   {submittingExpense ? "VERARBEITE …" : "GELD AUSGEBEN"}
                 </button>
@@ -547,7 +547,7 @@ export default function HomeShell() {
       <AnimatePresence>
         {ratingOpen && (
           <motion.div
-            className="fixed inset-0 z-40 flex items-center justify-center bg-slate-950/80 backdrop-blur-xl"
+            className="fixed inset-0 z-40 flex items-center justify-center bg-[#051F20]/80 backdrop-blur-xl"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -561,43 +561,43 @@ export default function HomeShell() {
             >
               <div className="flex items-center justify-between gap-2">
                 <div>
-                  <span className="tech-label text-slate-400">
+                  <span className="tech-label text-[#8EB69B]">
                     AUSGABE BEWERTEN
                   </span>
-                  <p className="mt-1 text-xs text-slate-300">
+                  <p className="mt-1 text-xs text-[#DAF1DE]">
                     Wie bewertest du diese Ausgabe?
                   </p>
                 </div>
                 <button
                   onClick={() => setRatingOpen(false)}
-                  className="rounded-full border border-slate-600/80 bg-slate-900/80 px-2 py-1 text-[10px] uppercase tracking-[0.18em] text-slate-400 hover:border-rose-500/80 hover:text-rose-200"
+                  className="rounded-full border border-[#235347]/80 bg-[#163832]/80 px-2 py-1 text-[10px] uppercase tracking-[0.18em] text-[#8EB69B] hover:border-[#8EB69B]/80 hover:text-[#DAF1DE]"
                 >
                   ABBRECHEN
                 </button>
               </div>
 
-              {loadingUnrated && <p className="text-xs text-slate-400">Lade …</p>}
+              {loadingUnrated && <p className="text-xs text-[#8EB69B]">Lade …</p>}
 
               {!loadingUnrated && !currentToRate && (
-                <p className="text-xs text-slate-300">
+                <p className="text-xs text-[#DAF1DE]">
                   Aktuell gibt es keine unbewerteten Ausgaben im laufenden Monat.
                 </p>
               )}
 
               {currentToRate && (
                 <>
-                  <div className="rounded-2xl border border-slate-700/80 bg-slate-900/80 px-4 py-3">
-                    <p className="text-sm font-medium text-slate-50">
+                  <div className="rounded-2xl border border-[#235347]/80 bg-[#163832]/80 px-4 py-3">
+                    <p className="text-sm font-medium text-[#DAF1DE]">
                       {currentToRate.purposeSnapshot}
                     </p>
-                    <p className="mt-1 text-sm text-sky-300">
+                    <p className="mt-1 text-sm text-[#8EB69B]">
                       {currentToRate.amountSnapshot.toLocaleString("de-DE", {
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2,
                       })}{" "}
                       €
                     </p>
-                    <p className="mt-1 text-[11px] text-slate-400">
+                    <p className="mt-1 text-[11px] text-[#8EB69B]">
                       {currentToRate.isRecurringSnapshot
                         ? `Wiederkehrend (${currentToRate.intervalSnapshot})`
                         : "Einmalige Ausgabe"}
@@ -605,7 +605,7 @@ export default function HomeShell() {
                     {currentToRate.isRecurringSnapshot &&
                       currentToRate.timesCharged &&
                       currentToRate.totalPaid !== undefined && (
-                        <p className="mt-1 text-[11px] text-slate-400">
+                        <p className="mt-1 text-[11px] text-[#8EB69B]">
                           Bisher abgebucht: {currentToRate.timesCharged}× ·
                           insgesamt{" "}
                           {currentToRate.totalPaid.toLocaleString("de-DE", {
@@ -649,7 +649,7 @@ export default function HomeShell() {
                     />
 
                     <div className="flex flex-col gap-2">
-                      <span className="tech-label text-slate-400">
+                      <span className="tech-label text-[#8EB69B]">
                         WIE ENTSTAND DIESE AUSGABE?
                       </span>
                       <div className="flex gap-2">
@@ -663,8 +663,8 @@ export default function HomeShell() {
                           }
                           className={`flex-1 rounded-2xl border px-3 py-2 text-[11px] uppercase tracking-[0.16em] ${
                             ratingState.q5Planned === "DURCHDACHT"
-                              ? "border-emerald-400/80 bg-emerald-500/20 text-emerald-100"
-                              : "border-slate-700/80 bg-slate-900/80 text-slate-300"
+                              ? "border-[#8EB69B]/80 bg-[#8EB69B]/20 text-[#DAF1DE]"
+                              : "border-[#235347]/80 bg-[#163832]/80 text-[#DAF1DE]"
                           }`}
                         >
                           DURCHDACHT
@@ -679,8 +679,8 @@ export default function HomeShell() {
                           }
                           className={`flex-1 rounded-2xl border px-3 py-2 text-[11px] uppercase tracking-[0.16em] ${
                             ratingState.q5Planned === "AFFEKTIV"
-                              ? "border-amber-400/80 bg-amber-500/15 text-amber-100"
-                              : "border-slate-700/80 bg-slate-900/80 text-slate-300"
+                              ? "border-[#8EB69B]/80 bg-[#8EB69B]/15 text-[#DAF1DE]"
+                              : "border-[#235347]/80 bg-[#163832]/80 text-[#DAF1DE]"
                           }`}
                         >
                           AFFEKTIV
@@ -690,7 +690,7 @@ export default function HomeShell() {
                   </div>
 
                   {ratingError && (
-                    <div className="rounded-xl border border-rose-500/70 bg-rose-950/40 px-3 py-2 text-xs text-rose-100">
+                    <div className="rounded-xl border border-[#8EB69B]/70 bg-[#0B2B26]/40 px-3 py-2 text-xs text-[#DAF1DE]">
                       {ratingError}
                     </div>
                   )}
@@ -700,7 +700,7 @@ export default function HomeShell() {
                       type="button"
                       onClick={() => handleRate(false)}
                       disabled={ratingBusy}
-                      className="flex-1 rounded-2xl border border-indigo-400/80 bg-indigo-500/20 px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-indigo-100 hover:bg-indigo-500/30 disabled:cursor-not-allowed disabled:opacity-60"
+                      className="flex-1 rounded-2xl border border-[#8EB69B]/80 bg-[#8EB69B]/20 px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#DAF1DE] hover:bg-[#8EB69B]/30 disabled:cursor-not-allowed disabled:opacity-60"
                     >
                       {ratingBusy ? "SPEICHERE …" : "BEWERTUNG SPEICHERN"}
                     </button>
@@ -708,7 +708,7 @@ export default function HomeShell() {
                       type="button"
                       onClick={() => handleRate(true)}
                       disabled={ratingBusy}
-                      className="flex-1 rounded-2xl border border-emerald-400/80 bg-emerald-500/20 px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-emerald-100 hover:bg-emerald-500/30 disabled:cursor-not-allowed disabled:opacity-60"
+                      className="flex-1 rounded-2xl border border-[#8EB69B]/80 bg-[#8EB69B]/20 px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#DAF1DE] hover:bg-[#8EB69B]/30 disabled:cursor-not-allowed disabled:opacity-60"
                     >
                       LEBENSNOTWENDIGE AUSGABE
                     </button>
@@ -751,7 +751,7 @@ type SliderRowProps = {
 function SliderRow({ label, value, onChange }: SliderRowProps) {
   return (
     <div className="flex flex-col gap-1.5">
-      <span className="tech-label text-slate-400">{label}</span>
+      <span className="tech-label text-[#8EB69B]">{label}</span>
       <div className="flex items-center gap-3">
         <input
           type="range"
@@ -760,9 +760,9 @@ function SliderRow({ label, value, onChange }: SliderRowProps) {
           step={1}
           value={value}
           onChange={(e) => onChange(Number(e.target.value))}
-          className="flex-1 accent-cyan-400"
+          className="flex-1 accent-[#8EB69B]"
         />
-        <span className="w-10 rounded-full border border-slate-700/80 bg-slate-950/80 py-1 text-center text-xs text-slate-100">
+        <span className="w-10 rounded-full border border-[#235347]/80 bg-[#051F20]/80 py-1 text-center text-xs text-[#DAF1DE]">
           {value}
         </span>
       </div>
@@ -779,15 +779,15 @@ type ToggleRowProps = {
 function ToggleRow({ label, value, onChange }: ToggleRowProps) {
   return (
     <div className="flex flex-col gap-1.5">
-      <span className="tech-label text-slate-400">{label}</span>
+      <span className="tech-label text-[#8EB69B]">{label}</span>
       <div className="flex gap-2">
         <button
           type="button"
           onClick={() => onChange(true)}
           className={`flex-1 rounded-2xl border px-3 py-1.5 text-[11px] uppercase tracking-[0.16em] ${
             value === true
-              ? "border-emerald-400/80 bg-emerald-500/20 text-emerald-100"
-              : "border-slate-700/80 bg-slate-900/80 text-slate-300"
+              ? "border-[#8EB69B]/80 bg-[#8EB69B]/20 text-[#DAF1DE]"
+              : "border-[#235347]/80 bg-[#163832]/80 text-[#DAF1DE]"
           }`}
         >
           JA
@@ -797,8 +797,8 @@ function ToggleRow({ label, value, onChange }: ToggleRowProps) {
           onClick={() => onChange(false)}
           className={`flex-1 rounded-2xl border px-3 py-1.5 text-[11px] uppercase tracking-[0.16em] ${
             value === false
-              ? "border-rose-400/80 bg-rose-500/20 text-rose-100"
-              : "border-slate-700/80 bg-slate-900/80 text-slate-300"
+              ? "border-[#8EB69B]/80 bg-[#8EB69B]/20 text-[#DAF1DE]"
+              : "border-[#235347]/80 bg-[#163832]/80 text-[#DAF1DE]"
           }`}
         >
           NEIN

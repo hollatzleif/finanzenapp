@@ -273,11 +273,11 @@ export default function StatisticsView({
 
     const total = data.ratingsForDensity.length;
     const colors = [
-      "rgb(239, 68, 68)", // red for 0-2
-      "rgb(245, 158, 11)", // amber for 2-4
-      "rgb(251, 191, 36)", // yellow for 4-6
-      "rgb(56, 189, 248)", // sky for 6-8
-      "rgb(34, 197, 94)", // emerald for 8-10
+      "rgb(35, 83, 71)", // #235347 for 0-2
+      "rgb(22, 56, 50)", // #163832 for 2-4
+      "rgb(142, 182, 155)", // #8EB69B for 4-6
+      "rgb(142, 182, 155)", // #8EB69B for 6-8
+      "rgb(218, 241, 222)", // #DAF1DE for 8-10
     ];
 
     let currentAngle = -90; // Start at top
@@ -309,7 +309,7 @@ export default function StatisticsView({
       <AnimatePresence>
         <motion.div
           key="statistics-modal"
-          className="fixed inset-0 z-40 flex flex-col bg-slate-950/90 backdrop-blur-xl"
+          className="fixed inset-0 z-40 flex flex-col bg-[#051F20]/90 backdrop-blur-xl"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -321,11 +321,11 @@ export default function StatisticsView({
           exit={{ y: 40, scale: 0.98 }}
           transition={{ type: "spring", stiffness: 260, damping: 26 }}
         >
-          <div className="flex items-center justify-between gap-2 border-b border-slate-700/70 pb-2 sm:pb-3 flex-shrink-0">
-            <span className="tech-label text-slate-400 text-[10px] sm:text-xs">STATISTIKEN</span>
+          <div className="flex items-center justify-between gap-2 border-b border-[#235347]/70 pb-2 sm:pb-3 flex-shrink-0">
+            <span className="tech-label text-[#8EB69B] text-[10px] sm:text-xs">STATISTIKEN</span>
             <button
               onClick={onClose}
-              className="rounded-xl border border-slate-600/80 bg-slate-900/80 px-2 py-1 sm:px-3 sm:py-1.5 text-[9px] sm:text-[10px] uppercase tracking-[0.18em] text-slate-300 hover:border-cyan-500/80 hover:text-cyan-200 hover:bg-slate-800/80"
+              className="rounded-xl border border-[#235347]/80 bg-[#163832]/80 px-2 py-1 sm:px-3 sm:py-1.5 text-[9px] sm:text-[10px] uppercase tracking-[0.18em] text-[#DAF1DE] hover:border-[#8EB69B]/80 hover:text-[#DAF1DE] hover:bg-[#235347]/80"
             >
               <span className="hidden sm:inline">ZURÜCK ZUM HAUPTMENÜ</span>
               <span className="sm:hidden">ZURÜCK</span>
@@ -339,8 +339,8 @@ export default function StatisticsView({
                 onClick={() => handlePeriodTypeChange("month")}
                 className={`rounded-lg border px-1.5 py-0.5 sm:px-2 sm:py-1 text-[9px] sm:text-[10px] uppercase tracking-[0.16em] ${
                   periodType === "month"
-                    ? "border-cyan-400/80 bg-cyan-500/20 text-cyan-100"
-                    : "border-slate-700/80 bg-slate-900/80 text-slate-300"
+                    ? "border-[#8EB69B]/80 bg-[#8EB69B]/20 text-[#DAF1DE]"
+                    : "border-[#235347]/80 bg-[#163832]/80 text-[#DAF1DE]"
                 }`}
               >
                 MONAT
@@ -349,29 +349,29 @@ export default function StatisticsView({
                 onClick={() => handlePeriodTypeChange("week")}
                 className={`rounded-lg border px-1.5 py-0.5 sm:px-2 sm:py-1 text-[9px] sm:text-[10px] uppercase tracking-[0.16em] ${
                   periodType === "week"
-                    ? "border-cyan-400/80 bg-cyan-500/20 text-cyan-100"
-                    : "border-slate-700/80 bg-slate-900/80 text-slate-300"
+                    ? "border-[#8EB69B]/80 bg-[#8EB69B]/20 text-[#DAF1DE]"
+                    : "border-[#235347]/80 bg-[#163832]/80 text-[#DAF1DE]"
                 }`}
               >
                 WOCHE
               </button>
             </div>
 
-            <div className="flex items-center justify-between gap-2 rounded-lg sm:rounded-xl border border-slate-700/80 bg-slate-900/80 px-2 sm:px-3 py-1 sm:py-1.5">
+            <div className="flex items-center justify-between gap-2 rounded-lg sm:rounded-xl border border-[#235347]/80 bg-[#163832]/80 px-2 sm:px-3 py-1 sm:py-1.5">
               <button
                 onClick={handlePreviousPeriod}
-                className="rounded-lg border border-slate-600/80 bg-slate-950/80 px-2 py-1 text-xs text-slate-300 hover:border-slate-500/80 hover:bg-slate-800/80"
+                className="rounded-lg border border-[#235347]/80 bg-[#051F20]/80 px-2 py-1 text-xs text-[#DAF1DE] hover:border-[#235347]/80 hover:bg-[#163832]/80"
               >
                 ←
               </button>
               <div className="flex-1 text-center">
-                <span className="text-[10px] sm:text-xs font-semibold text-slate-50">
+                <span className="text-[10px] sm:text-xs font-semibold text-[#DAF1DE]">
                   {data?.periodName || "Lade …"}
                 </span>
               </div>
               <button
                 onClick={handleNextPeriod}
-                className="rounded-lg border border-slate-600/80 bg-slate-950/80 px-2 py-1 text-xs text-slate-300 hover:border-slate-500/80 hover:bg-slate-800/80 disabled:cursor-not-allowed disabled:opacity-50"
+                className="rounded-lg border border-[#235347]/80 bg-[#051F20]/80 px-2 py-1 text-xs text-[#DAF1DE] hover:border-[#235347]/80 hover:bg-[#163832]/80 disabled:cursor-not-allowed disabled:opacity-50"
                 disabled={!canGoNext}
               >
                 →
@@ -380,15 +380,15 @@ export default function StatisticsView({
           </div>
 
           {loading ? (
-            <p className="text-xs text-slate-400">Lade …</p>
+            <p className="text-xs text-[#8EB69B]">Lade …</p>
           ) : !data || data.expenses.length === 0 ? (
-            <p className="text-sm text-slate-300">Keine Ausgaben in diesem Zeitraum.</p>
+            <p className="text-sm text-[#DAF1DE]">Keine Ausgaben in diesem Zeitraum.</p>
           ) : (
             <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-1.5 sm:gap-2 flex-1 overflow-hidden">
               {/* Dichtediagramm */}
               {densityData && densityData.bins.length > 0 && (
-                <div className="rounded-lg sm:rounded-xl border border-slate-700/80 bg-slate-900/80 p-1.5 sm:p-2 flex flex-col">
-                  <span className="tech-label text-slate-400 mb-1 block text-[8px] sm:text-[9px]">
+                <div className="rounded-lg sm:rounded-xl border border-[#235347]/80 bg-[#163832]/80 p-1.5 sm:p-2 flex flex-col">
+                  <span className="tech-label text-[#8EB69B] mb-1 block text-[8px] sm:text-[9px]">
                     VERTEILUNG DER BEWERTUNGEN
                   </span>
                   <div className="h-20 sm:h-24 md:h-28 w-full flex-1 relative">
@@ -404,7 +404,7 @@ export default function StatisticsView({
                         y1="5"
                         x2="30"
                         y2="90"
-                        stroke="rgb(148, 163, 184)"
+                        stroke="rgb(142, 182, 155)"
                         strokeWidth="1"
                       />
                       {/* X-Achse */}
@@ -413,7 +413,7 @@ export default function StatisticsView({
                         y1="90"
                         x2="290"
                         y2="90"
-                        stroke="rgb(148, 163, 184)"
+                        stroke="rgb(142, 182, 155)"
                         strokeWidth="1"
                       />
                       {/* Y-Achsen-Labels */}
@@ -427,13 +427,13 @@ export default function StatisticsView({
                               y1={yPos}
                               x2="30"
                               y2={yPos}
-                              stroke="rgb(148, 163, 184)"
+                              stroke="rgb(142, 182, 155)"
                               strokeWidth="0.5"
                             />
                             <text
                               x="25"
                               y={yPos}
-                              fill="rgb(148, 163, 184)"
+                              fill="rgb(142, 182, 155)"
                               fontSize="8"
                               textAnchor="end"
                               alignmentBaseline="middle"
@@ -453,13 +453,13 @@ export default function StatisticsView({
                               y1="90"
                               x2={xPos}
                               y2="92"
-                              stroke="rgb(148, 163, 184)"
+                              stroke="rgb(142, 182, 155)"
                               strokeWidth="0.5"
                             />
                             <text
                               x={xPos}
                               y="98"
-                              fill="rgb(148, 163, 184)"
+                              fill="rgb(142, 182, 155)"
                               fontSize="8"
                               textAnchor="middle"
                             >
@@ -481,7 +481,7 @@ export default function StatisticsView({
                               y={90 - height}
                               width={barWidth}
                               height={height}
-                              fill="rgb(56, 189, 248)"
+                              fill="rgb(142, 182, 155)"
                               opacity={0.7}
                             />
                           );
@@ -494,8 +494,8 @@ export default function StatisticsView({
 
               {/* Kuchendiagramm */}
               {pieChartData && pieChartData.length > 0 && (
-                <div className="rounded-lg sm:rounded-xl border border-slate-700/80 bg-slate-900/80 p-1.5 sm:p-2 flex flex-col justify-center">
-                  <span className="tech-label text-slate-400 mb-1 block text-[8px] sm:text-[9px]">
+                <div className="rounded-lg sm:rounded-xl border border-[#235347]/80 bg-[#163832]/80 p-1.5 sm:p-2 flex flex-col justify-center">
+                  <span className="tech-label text-[#8EB69B] mb-1 block text-[8px] sm:text-[9px]">
                     BEWERTUNGSVERTEILUNG
                   </span>
                   <div className="h-20 sm:h-24 md:h-28 w-full flex items-center gap-2">
@@ -526,7 +526,7 @@ export default function StatisticsView({
                               d={pathData}
                               fill={segment.color}
                               opacity={0.8}
-                              stroke="rgb(15, 23, 42)"
+                              stroke="rgb(5, 31, 32)"
                               strokeWidth="0.5"
                             />
                           );
@@ -540,8 +540,8 @@ export default function StatisticsView({
                             className="w-2.5 h-2.5 rounded-full flex-shrink-0"
                             style={{ backgroundColor: segment.color }}
                           />
-                          <span className="text-slate-300 whitespace-nowrap">{segment.label}:</span>
-                          <span className="text-slate-400 font-semibold">{(segment.percentage * 100).toFixed(1)}%</span>
+                          <span className="text-[#DAF1DE] whitespace-nowrap">{segment.label}:</span>
+                          <span className="text-[#8EB69B] font-semibold">{(segment.percentage * 100).toFixed(1)}%</span>
                         </div>
                       ))}
                     </div>
@@ -551,11 +551,11 @@ export default function StatisticsView({
 
               {/* Durchschnittliche Bewertung */}
               {data.avgRating !== null && (
-                <div className="rounded-lg sm:rounded-xl border border-slate-700/80 bg-slate-900/80 p-1.5 sm:p-2 flex flex-col justify-center">
-                  <span className="tech-label text-slate-400 mb-0.5 sm:mb-1 block text-[8px] sm:text-[9px]">
+                <div className="rounded-lg sm:rounded-xl border border-[#235347]/80 bg-[#163832]/80 p-1.5 sm:p-2 flex flex-col justify-center">
+                  <span className="tech-label text-[#8EB69B] mb-0.5 sm:mb-1 block text-[8px] sm:text-[9px]">
                     DURCHSCHNITTLICHE BEWERTUNG
                   </span>
-                  <span className="text-[10px] sm:text-xs font-semibold text-slate-50">
+                  <span className="text-[10px] sm:text-xs font-semibold text-[#DAF1DE]">
                     Ø Bewertung: {data.avgRating.toFixed(2)}
                   </span>
                 </div>
@@ -563,15 +563,15 @@ export default function StatisticsView({
 
               {/* Vergleich */}
               {data.hasComparison && data.ratingDiff !== null && (
-                <div className="rounded-lg sm:rounded-xl border border-slate-700/80 bg-slate-900/80 p-1.5 sm:p-2 flex flex-col justify-center">
-                  <span className="tech-label text-slate-400 mb-0.5 sm:mb-1 block text-[8px] sm:text-[9px]">TREND</span>
+                <div className="rounded-lg sm:rounded-xl border border-[#235347]/80 bg-[#163832]/80 p-1.5 sm:p-2 flex flex-col justify-center">
+                  <span className="tech-label text-[#8EB69B] mb-0.5 sm:mb-1 block text-[8px] sm:text-[9px]">TREND</span>
                   <span
                     className={`text-[10px] sm:text-xs font-semibold ${
                       data.ratingDiff > 0
-                        ? "text-emerald-300"
+                        ? "text-[#8EB69B]"
                         : data.ratingDiff < 0
-                        ? "text-rose-300"
-                        : "text-slate-300"
+                        ? "text-[#8EB69B]"
+                        : "text-[#DAF1DE]"
                     }`}
                   >
                     {data.ratingDiff > 0 ? "+" : ""}
@@ -588,14 +588,14 @@ export default function StatisticsView({
               )}
 
               {/* Rechenmodul 2: Manuell auswählen / Sparplan */}
-              <div className="rounded-lg sm:rounded-xl border border-slate-700/80 bg-slate-900/80 p-1.5 sm:p-2 flex flex-col overflow-y-auto lg:col-span-2 xl:col-span-3">
-                <span className="tech-label text-slate-400 mb-1 block text-[8px] sm:text-[9px]">
+              <div className="rounded-lg sm:rounded-xl border border-[#235347]/80 bg-[#163832]/80 p-1.5 sm:p-2 flex flex-col overflow-y-auto lg:col-span-2 xl:col-span-3">
+                <span className="tech-label text-[#8EB69B] mb-1 block text-[8px] sm:text-[9px]">
                   SPARPLAN: SELEKTIVE AUSGABEN ENTFERNEN
                 </span>
                 <div className="flex flex-col gap-1">
                   <div>
-                    <span className="text-[9px] sm:text-[10px] text-slate-300">Gesamtausgaben: </span>
-                    <span className="text-[9px] sm:text-[10px] font-semibold text-sky-300">
+                    <span className="text-[9px] sm:text-[10px] text-[#DAF1DE]">Gesamtausgaben: </span>
+                    <span className="text-[9px] sm:text-[10px] font-semibold text-[#8EB69B]">
                       {data.totalSpent.toLocaleString("de-DE", {
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2,
@@ -605,13 +605,13 @@ export default function StatisticsView({
                   </div>
                   <button
                     onClick={() => setShowExpenseList(true)}
-                    className="rounded-lg border border-slate-600/80 bg-slate-950/80 px-1.5 sm:px-2 py-0.5 sm:py-1 text-[8px] sm:text-[9px] text-slate-300 hover:border-slate-500/80 hover:bg-slate-800/80"
+                    className="rounded-lg border border-[#235347]/80 bg-[#051F20]/80 px-1.5 sm:px-2 py-0.5 sm:py-1 text-[8px] sm:text-[9px] text-[#DAF1DE] hover:border-[#235347]/80 hover:bg-[#163832]/80"
                   >
                     Ausgaben auswählen
                   </button>
                   <div>
-                    <span className="text-[9px] sm:text-[10px] text-slate-300">Angepasste Ausgaben: </span>
-                    <span className="text-[9px] sm:text-[10px] font-semibold text-emerald-300">
+                    <span className="text-[9px] sm:text-[10px] text-[#DAF1DE]">Angepasste Ausgaben: </span>
+                    <span className="text-[9px] sm:text-[10px] font-semibold text-[#8EB69B]">
                       {manualCalculations.adjustedSpent.toLocaleString("de-DE", {
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2,
@@ -620,8 +620,8 @@ export default function StatisticsView({
                     </span>
                   </div>
                   <div>
-                    <span className="text-sm text-slate-300">Mögliche Ersparnis: </span>
-                    <span className="text-sm font-semibold text-amber-300">
+                    <span className="text-sm text-[#DAF1DE]">Mögliche Ersparnis: </span>
+                    <span className="text-sm font-semibold text-[#8EB69B]">
                       {manualCalculations.savings.toLocaleString("de-DE", {
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2,
@@ -634,14 +634,14 @@ export default function StatisticsView({
                       type="checkbox"
                       checked={investEnabled2}
                       onChange={(e) => setInvestEnabled2(e.target.checked)}
-                      className="accent-cyan-400 w-3 h-3"
+                      className="accent-[#8EB69B] w-3 h-3"
                     />
-                    <span className="text-[8px] sm:text-[9px] text-slate-300">stattdessen investieren</span>
+                    <span className="text-[8px] sm:text-[9px] text-[#DAF1DE]">stattdessen investieren</span>
                   </label>
                   {investEnabled2 && (
                     <div className="flex flex-col gap-1 pl-3 sm:pl-4">
                       <div>
-                        <label className="text-[8px] sm:text-[9px] text-slate-400">Zinssatz p.a. (%)</label>
+                        <label className="text-[8px] sm:text-[9px] text-[#8EB69B]">Zinssatz p.a. (%)</label>
                         <input
                           type="number"
                           min={0}
@@ -649,7 +649,7 @@ export default function StatisticsView({
                           step={0.1}
                           value={interestRate2}
                           onChange={(e) => setInterestRate2(Number(e.target.value))}
-                          className="w-full rounded-lg border border-slate-700/80 bg-slate-950/80 px-1.5 sm:px-2 py-0.5 sm:py-1 text-[9px] sm:text-[10px] text-slate-100"
+                          className="w-full rounded-lg border border-[#235347]/80 bg-[#051F20]/80 px-1.5 sm:px-2 py-0.5 sm:py-1 text-[9px] sm:text-[10px] text-[#DAF1DE]"
                         />
                       </div>
                       <div className="flex gap-1">
@@ -658,12 +658,12 @@ export default function StatisticsView({
                           min={1}
                           value={duration2}
                           onChange={(e) => setDuration2(Number(e.target.value))}
-                          className="flex-1 rounded-lg border border-slate-700/80 bg-slate-950/80 px-1.5 sm:px-2 py-0.5 sm:py-1 text-[9px] sm:text-[10px] text-slate-100"
+                          className="flex-1 rounded-lg border border-[#235347]/80 bg-[#051F20]/80 px-1.5 sm:px-2 py-0.5 sm:py-1 text-[9px] sm:text-[10px] text-[#DAF1DE]"
                         />
                         <select
                           value={durationType2}
                           onChange={(e) => setDurationType2(e.target.value as "months" | "years")}
-                          className="rounded-lg border border-slate-700/80 bg-slate-950/80 px-1.5 sm:px-2 py-0.5 sm:py-1 text-[9px] sm:text-[10px] text-slate-100"
+                          className="rounded-lg border border-[#235347]/80 bg-[#051F20]/80 px-1.5 sm:px-2 py-0.5 sm:py-1 text-[9px] sm:text-[10px] text-[#DAF1DE]"
                         >
                           <option value="months">Monate</option>
                           <option value="years">Jahre</option>
@@ -671,7 +671,7 @@ export default function StatisticsView({
                       </div>
                       {investmentResult2 !== null && (
                         <div className="mt-1">
-                          <span className="text-[9px] sm:text-[10px] font-semibold text-emerald-300">
+                          <span className="text-[9px] sm:text-[10px] font-semibold text-[#8EB69B]">
                             Wert heute:{" "}
                             {investmentResult2.toLocaleString("de-DE", {
                               minimumFractionDigits: 2,
@@ -679,7 +679,7 @@ export default function StatisticsView({
                             })}{" "}
                             €
                           </span>
-                          <p className="text-[7px] sm:text-[8px] text-slate-300 mt-0.5 leading-tight">
+                          <p className="text-[7px] sm:text-[8px] text-[#DAF1DE] mt-0.5 leading-tight">
                             Hättest Du {periodType === "month" ? "diesen Monat" : "diese Woche"} auf{" "}
                             {selectedExpenses.size} Ausgaben verzichtet, hättest Du{" "}
                             {manualCalculations.savings.toLocaleString("de-DE", {
@@ -707,14 +707,14 @@ export default function StatisticsView({
               </div>
 
               {/* Rechenmodul 1: Bewertungs-Schwelle */}
-              <div className="rounded-lg sm:rounded-xl border border-slate-700/80 bg-slate-900/80 p-1.5 sm:p-2 flex flex-col overflow-y-auto w-[1052px]">
-                <span className="tech-label text-slate-400 mb-1 block text-[8px] sm:text-[9px]">
+              <div className="rounded-lg sm:rounded-xl border border-[#235347]/80 bg-[#163832]/80 p-1.5 sm:p-2 flex flex-col overflow-y-auto w-[1052px]">
+                <span className="tech-label text-[#8EB69B] mb-1 block text-[8px] sm:text-[9px]">
                   AUSGABEN NACH BEWERTUNGS-SCHWELLE
                 </span>
                 <div className="flex flex-col gap-1 sm:gap-1.5">
                   <div>
-                    <span className="text-xs sm:text-sm text-slate-300">Gesamtausgaben: </span>
-                    <span className="text-xs sm:text-sm font-semibold text-sky-300">
+                    <span className="text-xs sm:text-sm text-[#DAF1DE]">Gesamtausgaben: </span>
+                    <span className="text-xs sm:text-sm font-semibold text-[#8EB69B]">
                       {data.totalSpent.toLocaleString("de-DE", {
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2,
@@ -723,7 +723,7 @@ export default function StatisticsView({
                     </span>
                   </div>
                   <div className="flex flex-col gap-1.5 sm:gap-2">
-                    <label className="text-[10px] sm:text-xs text-slate-400">Schwelle: {threshold.toFixed(1)}</label>
+                    <label className="text-[10px] sm:text-xs text-[#8EB69B]">Schwelle: {threshold.toFixed(1)}</label>
                     <input
                       type="range"
                       min={0}
@@ -731,12 +731,12 @@ export default function StatisticsView({
                       step={0.1}
                       value={threshold}
                       onChange={(e) => setThreshold(Number(e.target.value))}
-                      className="accent-cyan-400"
+                      className="accent-[#8EB69B]"
                     />
                   </div>
                   <div>
-                    <span className="text-[9px] sm:text-[10px] text-slate-300">Angepasste Ausgaben: </span>
-                    <span className="text-[9px] sm:text-[10px] font-semibold text-emerald-300">
+                    <span className="text-[9px] sm:text-[10px] text-[#DAF1DE]">Angepasste Ausgaben: </span>
+                    <span className="text-[9px] sm:text-[10px] font-semibold text-[#8EB69B]">
                       {thresholdCalculations.adjustedSpent.toLocaleString("de-DE", {
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2,
@@ -745,8 +745,8 @@ export default function StatisticsView({
                     </span>
                   </div>
                   <div>
-                    <span className="text-sm text-slate-300">Mögliche Ersparnis: </span>
-                    <span className="text-sm font-semibold text-amber-300">
+                    <span className="text-sm text-[#DAF1DE]">Mögliche Ersparnis: </span>
+                    <span className="text-sm font-semibold text-[#8EB69B]">
                       {thresholdCalculations.savings.toLocaleString("de-DE", {
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2,
@@ -759,14 +759,14 @@ export default function StatisticsView({
                       type="checkbox"
                       checked={investEnabled1}
                       onChange={(e) => setInvestEnabled1(e.target.checked)}
-                      className="accent-cyan-400 w-3 h-3"
+                      className="accent-[#8EB69B] w-3 h-3"
                     />
-                    <span className="text-[8px] sm:text-[9px] text-slate-300">stattdessen investieren</span>
+                    <span className="text-[8px] sm:text-[9px] text-[#DAF1DE]">stattdessen investieren</span>
                   </label>
                   {investEnabled1 && (
                     <div className="flex flex-col gap-1 pl-3 sm:pl-4">
                       <div>
-                        <label className="text-[8px] sm:text-[9px] text-slate-400">Zinssatz p.a. (%)</label>
+                        <label className="text-[8px] sm:text-[9px] text-[#8EB69B]">Zinssatz p.a. (%)</label>
                         <input
                           type="number"
                           min={0}
@@ -774,7 +774,7 @@ export default function StatisticsView({
                           step={0.1}
                           value={interestRate1}
                           onChange={(e) => setInterestRate1(Number(e.target.value))}
-                          className="w-full rounded-lg border border-slate-700/80 bg-slate-950/80 px-1.5 sm:px-2 py-0.5 sm:py-1 text-[9px] sm:text-[10px] text-slate-100"
+                          className="w-full rounded-lg border border-[#235347]/80 bg-[#051F20]/80 px-1.5 sm:px-2 py-0.5 sm:py-1 text-[9px] sm:text-[10px] text-[#DAF1DE]"
                         />
                       </div>
                       <div className="flex gap-1">
@@ -783,12 +783,12 @@ export default function StatisticsView({
                           min={1}
                           value={duration1}
                           onChange={(e) => setDuration1(Number(e.target.value))}
-                          className="flex-1 rounded-lg border border-slate-700/80 bg-slate-950/80 px-1.5 sm:px-2 py-0.5 sm:py-1 text-[9px] sm:text-[10px] text-slate-100"
+                          className="flex-1 rounded-lg border border-[#235347]/80 bg-[#051F20]/80 px-1.5 sm:px-2 py-0.5 sm:py-1 text-[9px] sm:text-[10px] text-[#DAF1DE]"
                         />
                         <select
                           value={durationType1}
                           onChange={(e) => setDurationType1(e.target.value as "months" | "years")}
-                          className="rounded-lg border border-slate-700/80 bg-slate-950/80 px-1.5 sm:px-2 py-0.5 sm:py-1 text-[9px] sm:text-[10px] text-slate-100"
+                          className="rounded-lg border border-[#235347]/80 bg-[#051F20]/80 px-1.5 sm:px-2 py-0.5 sm:py-1 text-[9px] sm:text-[10px] text-[#DAF1DE]"
                         >
                           <option value="months">Monate</option>
                           <option value="years">Jahre</option>
@@ -796,7 +796,7 @@ export default function StatisticsView({
                       </div>
                       {investmentResult1 !== null && (
                         <div className="mt-1">
-                          <span className="text-[9px] sm:text-[10px] font-semibold text-emerald-300">
+                          <span className="text-[9px] sm:text-[10px] font-semibold text-[#8EB69B]">
                             Wert heute:{" "}
                             {investmentResult1.toLocaleString("de-DE", {
                               minimumFractionDigits: 2,
@@ -804,7 +804,7 @@ export default function StatisticsView({
                             })}{" "}
                             €
                           </span>
-                          <p className="text-[7px] sm:text-[8px] text-slate-300 mt-0.5 leading-tight">
+                          <p className="text-[7px] sm:text-[8px] text-[#DAF1DE] mt-0.5 leading-tight">
                             Hättest Du {periodType === "month" ? "diesen Monat" : "diese Woche"} auf
                             alle Ausgaben mit der Bewertung {threshold.toFixed(1)} oder niedriger
                             verzichtet, hättest Du {thresholdCalculations.savings.toLocaleString("de-DE", {
@@ -841,27 +841,27 @@ export default function StatisticsView({
         {showExpenseList && data && (
           <motion.div
             key="expense-list-popup"
-            className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 backdrop-blur-md"
+            className="fixed inset-0 z-50 flex items-center justify-center bg-[#051F20]/80 backdrop-blur-md"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setShowExpenseList(false)}
           >
             <motion.div
-              className="w-full max-w-2xl max-h-[80vh] rounded-2xl border border-slate-700/80 bg-slate-950/95 p-4 sm:p-6 shadow-[0_0_40px_rgba(15,23,42,0.95)] flex flex-col"
+              className="w-full max-w-2xl max-h-[80vh] rounded-2xl border border-[#235347]/80 bg-[#051F20]/95 p-4 sm:p-6 shadow-[0_0_40px_rgba(5,31,32,0.95)] flex flex-col"
               initial={{ y: 40, scale: 0.98 }}
               animate={{ y: 0, scale: 1 }}
               exit={{ y: 40, scale: 0.98 }}
               transition={{ type: "spring", stiffness: 260, damping: 26 }}
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="flex items-center justify-between mb-4 pb-3 border-b border-slate-700/70">
-                <span className="tech-label text-slate-400 text-xs sm:text-sm">
+              <div className="flex items-center justify-between mb-4 pb-3 border-b border-[#235347]/70">
+                <span className="tech-label text-[#8EB69B] text-xs sm:text-sm">
                   AUSGABEN AUSWÄHLEN
                 </span>
                 <button
                   onClick={() => setShowExpenseList(false)}
-                  className="rounded-full border border-slate-600/80 bg-slate-900/80 px-2 py-1 text-[10px] uppercase tracking-[0.18em] text-slate-400 hover:border-rose-500/80 hover:text-rose-200"
+                  className="rounded-full border border-[#235347]/80 bg-[#163832]/80 px-2 py-1 text-[10px] uppercase tracking-[0.18em] text-[#8EB69B] hover:border-[#8EB69B]/80 hover:text-[#DAF1DE]"
                 >
                   ✕
                 </button>
@@ -870,7 +870,7 @@ export default function StatisticsView({
                 {data.expenses.map((expense) => (
                   <label
                     key={expense.id}
-                    className="flex items-center gap-2 p-2 sm:p-3 rounded-lg border border-slate-700/80 bg-slate-900/80 cursor-pointer hover:bg-slate-800/80 transition-colors"
+                    className="flex items-center gap-2 p-2 sm:p-3 rounded-lg border border-[#235347]/80 bg-[#163832]/80 cursor-pointer hover:bg-[#235347]/80 transition-colors"
                   >
                     <input
                       type="checkbox"
@@ -884,24 +884,24 @@ export default function StatisticsView({
                         }
                         setSelectedExpenses(newSet);
                       }}
-                      className="accent-cyan-400 w-4 h-4 flex-shrink-0"
+                      className="accent-[#8EB69B] w-4 h-4 flex-shrink-0"
                     />
                     <div className="flex-1 flex items-center justify-between gap-2 text-[10px] sm:text-xs flex-wrap">
-                      <span className="text-slate-200 truncate flex-1 min-w-0">{expense.purposeSnapshot}</span>
-                      <span className="text-sky-300 whitespace-nowrap">
+                      <span className="text-[#DAF1DE] truncate flex-1 min-w-0">{expense.purposeSnapshot}</span>
+                      <span className="text-[#8EB69B] whitespace-nowrap">
                         {expense.amountSnapshot.toLocaleString("de-DE", {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2,
                         })}{" "}
                         €
                       </span>
-                      <span className="text-slate-400 text-[9px] sm:text-[10px] whitespace-nowrap">
+                      <span className="text-[#8EB69B] text-[9px] sm:text-[10px] whitespace-nowrap">
                         {new Date(expense.chargedAt).toLocaleDateString("de-DE", {
                           day: "2-digit",
                           month: "2-digit",
                         })}
                       </span>
-                      <span className="text-slate-400 text-[9px] sm:text-[10px] whitespace-nowrap">
+                      <span className="text-[#8EB69B] text-[9px] sm:text-[10px] whitespace-nowrap">
                         {expense.ratingStatus === "LEBENSNOTWENDIG"
                           ? "lebensnotwendig"
                           : expense.ratingStatus === "UNBEWERTET" || expense.ratingValue === null
