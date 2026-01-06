@@ -3,8 +3,19 @@ import { getCurrentUser } from "@/lib/auth";
 import { ensureCsrfToken } from "@/lib/csrf";
 
 export async function GET() {
-  // CSRF-Token immer setzen, damit das Frontend ihn lesen kann
-  await ensureCsrfToken();
+  try {
+    // CSRF-Token immer setzen, damit das Frontend ihn lesen kann
+    await ensureCsrfToken();
+  } catch (error) {
+    console.error("CSRF-Token Fehler:", error);
+    return NextResponse.json(
+      { 
+        message: "Server-Konfigurationsfehler: CSRF_SECRET ist nicht gesetzt.",
+        error: process.env.NODE_ENV === "development" ? String(error) : undefined
+      },
+      { status: 500 }
+    );
+  }
   
   const user = await getCurrentUser();
   if (!user) {

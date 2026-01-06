@@ -149,7 +149,7 @@ export default function AuthPage() {
                 className="relative z-10 w-full bg-transparent px-4 py-3 text-sm text-slate-100 outline-none placeholder:text-slate-500"
                 placeholder="z.B. finanzen_neo"
                 minLength={3}
-                pattern="[a-zA-Z0-9_-]{3,}"
+                pattern="^[a-zA-Z0-9_-]{3,}$"
               />
             </div>
             <p className="text-xs text-slate-400">
