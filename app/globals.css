@@ -1,26 +1,47 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-space-grotesk);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  min-height: 100vh;
+  font-family: var(--font-space-grotesk), system-ui, -apple-system, BlinkMacSystemFont,
+    "SF Pro Text", sans-serif;
 }
+
+::selection {
+  background: rgba(56, 189, 248, 0.3);
+  color: #e5faff;
+}
+
+.glass-panel {
+  background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.13), transparent 55%),
+    radial-gradient(circle at bottom right, rgba(129, 140, 248, 0.15), transparent 55%),
+    rgba(15, 23, 42, 0.92);
+  border-radius: 1.5rem;
+  border: 1px solid rgba(148, 163, 184, 0.45);
+  box-shadow:
+    0 0 0 1px rgba(15, 23, 42, 0.8),
+    0 22px 40px rgba(15, 23, 42, 0.95),
+    0 0 60px rgba(15, 23, 42, 0.9);
+  backdrop-filter: blur(26px);
+}
+
+.tech-label {
+  letter-spacing: 0.21em;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+}
+
+.hairline {
+  border-color: rgba(148, 163, 184, 0.45);
+}
+

@@ -1,0 +1,97 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  username  String   @unique
+  createdAt DateTime @default(now())
+
+  sessions          Session[]
+  expenseDefinitions ExpenseDefinition[]
+  expenseInstances   ExpenseInstance[]
+}
+
+model Session {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  expiresAt DateTime
+  revokedAt DateTime?
+
+  @@index([userId])
+}
+
+enum IntervalType {
+  EINMALIG
+  TAGE
+  WOCHEN
+  MONATE
+  JAHRE
+}
+
+enum RatingStatus {
+  UNBEWERTET
+  BEWERTET
+  LEBENSNOTWENDIG
+}
+
+enum PlannedType {
+  DURCHDACHT
+  AFFEKTIV
+}
+
+model ExpenseDefinition {
+  id              String   @id @default(uuid())
+  userId          String
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  purpose         String
+  amount          Decimal  @db.Decimal(10, 2)
+  isRecurring     Boolean  @default(false)
+  intervalType    IntervalType
+  intervalEvery   Int      @default(1)
+  startDate       DateTime
+  anchorDayOfMonth Int?
+  createdAt       DateTime @default(now())
+  timesCharged    Int      @default(0)
+  totalPaid       Decimal  @default(0) @db.Decimal(10, 2)
+  lastChargedAt   DateTime?
+
+  instances ExpenseInstance[]
+
+  @@index([userId])
+}
+
+model ExpenseInstance {
+  id                   String        @id @default(uuid())
+  userId               String
+  user                 User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  definitionId         String
+  definition           ExpenseDefinition @relation(fields: [definitionId], references: [id], onDelete: Cascade)
+  purposeSnapshot      String
+  amountSnapshot       Decimal       @db.Decimal(10, 2)
+  chargedAt            DateTime
+  monthKey             String
+  isRecurringSnapshot  Boolean
+  intervalSnapshot     String
+  ratingStatus         RatingStatus  @default(UNBEWERTET)
+  ratingValue          Decimal?      @db.Decimal(4, 2)
+  q1Happy              Int?
+  q2Value              Int?
+  q3RepeatNow          Boolean?
+  q4NeedElsewhere      Boolean?
+  q5Planned            PlannedType?
+  ratedAt              DateTime?
+  createdAt            DateTime      @default(now())
+
+  @@index([userId, monthKey, ratingStatus])
+  @@index([definitionId, chargedAt])
+  @@unique([definitionId, chargedAt])
+}
+
