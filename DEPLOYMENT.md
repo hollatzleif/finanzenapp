@@ -6,16 +6,29 @@ Diese Anleitung zeigt, wie du die Finanzapp kostenlos auf Render (empfohlen) ode
 
 Render kann die komplette Next.js-App inkl. API Routes und die PostgreSQL-Datenbank hosten.
 
-### Schritt 0: Erste Migration erstellen (Lokal)
+### Schritt 0: Erste Migration erstellen (Lokal) ⚠️ WICHTIG
 
-Bevor du deployst, erstelle die erste Migration lokal:
+**Bevor du deployst, musst du die erste Migration erstellen!**
 
+1. Stelle sicher, dass deine lokale Datenbank läuft (Docker Compose):
 ```bash
 cd web
+docker compose up -d
+```
+
+2. Erstelle die Migration:
+```bash
 npx prisma migrate dev --name init
 ```
 
-Dies erstellt die Migration-Dateien, die auf Render verwendet werden.
+3. Committe die Migration-Dateien:
+```bash
+git add prisma/migrations
+git commit -m "Add initial database migration"
+git push origin main
+```
+
+⚠️ **Ohne Migrationen funktioniert die App nicht!** Die Migrationen müssen im Repository sein, damit sie beim Deployment ausgeführt werden können.
 
 ### Schritt 1: GitHub Repository vorbereiten
 
@@ -198,6 +211,34 @@ Beide Plattformen unterstützen kostenlose Custom Domains:
 4. **Falsche URL-Format**:
    - Die URL sollte so aussehen: `postgresql://user:password@host:port/database`
    - Prüfe, ob alle Teile vorhanden sind
+
+### "relation 'User' does not exist" oder ähnliche Fehler
+
+**Symptom**: Fehler wie `relation "User" does not exist` beim Registrieren oder Login
+
+**Ursache**: Die Datenbank-Tabellen wurden noch nicht erstellt (Migrationen fehlen)
+
+**Lösung**:
+
+1. **Prüfe, ob Migrationen im Repository existieren**:
+   ```bash
+   ls -la prisma/migrations
+   ```
+   Wenn leer oder nicht vorhanden, siehe Schritt 0 oben.
+
+2. **Erstelle die Migrationen lokal** (falls noch nicht geschehen):
+   ```bash
+   cd web
+   docker compose up -d  # Stelle sicher, dass DB läuft
+   npx prisma migrate dev --name init
+   git add prisma/migrations
+   git commit -m "Add database migrations"
+   git push origin main
+   ```
+
+3. **Nach dem Push**: Netlify/Render führt automatisch `prisma migrate deploy` beim Build aus
+
+4. **Fallback**: Falls Migrationen fehlen, verwendet das Build-Script automatisch `prisma db push` (nicht ideal, aber funktioniert)
 
 ### API Routes funktionieren nicht
 - Bei Netlify: Stelle sicher, dass `@netlify/plugin-nextjs` installiert ist
