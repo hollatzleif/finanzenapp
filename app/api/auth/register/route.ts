@@ -27,8 +27,24 @@ export async function POST(req: Request) {
       { status: 201 }
     );
   } catch (err: any) {
+    console.error("Registrierungsfehler:", err);
+    const isDbError = err?.code === "ENOTFOUND" || err?.code === "ECONNREFUSED" || err?.message?.includes("getaddrinfo");
+    
+    if (isDbError) {
+      return NextResponse.json(
+        { 
+          message: "Datenbankverbindung fehlgeschlagen. Bitte versuche es später erneut.",
+          error: process.env.NODE_ENV === "development" ? err.message : undefined
+        },
+        { status: 500 }
+      );
+    }
+    
     return NextResponse.json(
-      { message: err.message ?? "Registrierung fehlgeschlagen." },
+      { 
+        message: err.message ?? "Registrierung fehlgeschlagen.",
+        error: process.env.NODE_ENV === "development" ? err.message : undefined
+      },
       { status: 400 }
     );
   }

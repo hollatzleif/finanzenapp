@@ -5,16 +5,32 @@ if (!process.env.DATABASE_URL) {
 }
 
 // Parse DATABASE_URL und verwende explizite Parameter
-const dbUrl = process.env.DATABASE_URL.replace(/\?schema=.*$/, "");
-const url = new URL(dbUrl);
+let pool: Pool;
 
-const pool = new Pool({
-  host: url.hostname,
-  port: parseInt(url.port || "5432"),
-  database: url.pathname.slice(1), // entferne führendes /
-  user: url.username,
-  password: url.password,
-});
+try {
+  const dbUrl = process.env.DATABASE_URL.replace(/\?schema=.*$/, "");
+  const url = new URL(dbUrl);
+
+  pool = new Pool({
+    host: url.hostname,
+    port: parseInt(url.port || "5432"),
+    database: url.pathname.slice(1), // entferne führendes /
+    user: url.username,
+    password: url.password,
+    // Connection pool settings für bessere Fehlerbehandlung
+    connectionTimeoutMillis: 10000,
+    idleTimeoutMillis: 30000,
+    max: 10,
+  });
+
+  // Test connection beim Start
+  pool.on("error", (err) => {
+    console.error("Unexpected error on idle client", err);
+  });
+} catch (error) {
+  console.error("Fehler beim Erstellen des Database Pools:", error);
+  throw new Error(`Ungültige DATABASE_URL: ${error instanceof Error ? error.message : String(error)}`);
+}
 
 export const db = pool;
 

@@ -113,6 +113,8 @@ Folge **Schritt 3** aus Option 1, um die Datenbank zu erstellen.
 
 4. **Environment Variables** hinzufügen:
    - `DATABASE_URL`: Die Render-Datenbank-URL
+     - ⚠️ **WICHTIG**: Wenn die App auf Netlify läuft, verwende die **"External Connection String"** aus Render (nicht die "Internal Database URL")
+     - Die External URL findest du in Render unter: Database → Connect → External Connection String
    - `NODE_ENV`: `production`
    - `SESSION_SECRET`: Generiere einen zufälligen String (mind. 16 Zeichen, z.B. mit `openssl rand -base64 32`)
    - `CSRF_SECRET`: Generiere einen zufälligen String (mind. 16 Zeichen, z.B. mit `openssl rand -base64 32`)
@@ -172,10 +174,30 @@ Beide Plattformen unterstützen kostenlose Custom Domains:
 - Prüfe die Build-Logs in Render/Netlify
 - Stelle sicher, dass `prisma generate` im Build-Command enthalten ist
 
-### Datenbank-Verbindung fehlgeschlagen
-- Prüfe, ob `DATABASE_URL` korrekt gesetzt ist
-- Stelle sicher, dass die Datenbank auf Render läuft
-- Bei Render: Nutze die "Internal Database URL" (nicht die externe)
+### Datenbank-Verbindung fehlgeschlagen (`getaddrinfo ENOTFOUND`)
+
+**Symptom**: Fehler wie `getaddrinfo ENOTFOUND dpg-xxxxx` oder `ECONNREFUSED`
+
+**Lösungen**:
+
+1. **Prüfe die DATABASE_URL**:
+   - Bei **Netlify + Render**: Verwende die **"External Connection String"** aus Render
+     - Render → Database → Connect → External Connection String
+   - Bei **Render (alles auf Render)**: Verwende die **"Internal Database URL"**
+     - Render → Database → Connect → Internal Database URL
+
+2. **Datenbank ist "eingeschlafen"** (Render Free Tier):
+   - Render Free Tier Datenbanken schlafen nach 90 Tagen Inaktivität ein
+   - Lösung: Warte 1-2 Minuten nach dem ersten Request, die DB wacht automatisch auf
+   - Oder: Upgrade auf einen bezahlten Plan
+
+3. **Datenbank läuft nicht**:
+   - Prüfe in Render, ob die Datenbank läuft (Status sollte "Available" sein)
+   - Starte die Datenbank neu, falls nötig
+
+4. **Falsche URL-Format**:
+   - Die URL sollte so aussehen: `postgresql://user:password@host:port/database`
+   - Prüfe, ob alle Teile vorhanden sind
 
 ### API Routes funktionieren nicht
 - Bei Netlify: Stelle sicher, dass `@netlify/plugin-nextjs` installiert ist
