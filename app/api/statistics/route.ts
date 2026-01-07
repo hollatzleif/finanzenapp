@@ -160,8 +160,9 @@ export async function GET(req: Request) {
   const previousInstances = await query<{
     ratingStatus: string;
     ratingValue: number | null;
+    amountSnapshot: string;
   }>(
-    `SELECT "ratingStatus", "ratingValue"
+    `SELECT "ratingStatus", "ratingValue", "amountSnapshot"
      FROM "ExpenseInstance"
      WHERE "userId" = $1 AND "chargedAt" >= $2 AND "chargedAt" <= $3
        AND "ratingStatus" != 'LEBENSNOTWENDIG' AND "ratingStatus" != 'UNBEWERTET'`,
@@ -200,8 +201,9 @@ export async function GET(req: Request) {
       const searchResults = await query<{
         ratingStatus: string;
         ratingValue: number | null;
+        amountSnapshot: string;
       }>(
-        `SELECT "ratingStatus", "ratingValue"
+        `SELECT "ratingStatus", "ratingValue", "amountSnapshot"
          FROM "ExpenseInstance"
          WHERE "userId" = $1 AND "chargedAt" >= $2 AND "chargedAt" <= $3
            AND "ratingStatus" != 'LEBENSNOTWENDIG' AND "ratingStatus" != 'UNBEWERTET'`,
@@ -232,18 +234,41 @@ export async function GET(req: Request) {
   const ratedExpenses = expenses.filter(
     (e) => e.ratingStatus === "BEWERTET" && e.ratingValue !== null
   );
+  
+  // Gewichteter Durchschnitt: Summe(Bewertung * Betrag) / Summe(Betrag)
   const avgRating =
     ratedExpenses.length > 0
-      ? ratedExpenses.reduce((sum, e) => sum + (e.ratingValue || 0), 0) / ratedExpenses.length
+      ? (() => {
+          const weightedSum = ratedExpenses.reduce(
+            (sum, e) => sum + (e.ratingValue || 0) * e.amountSnapshot,
+            0
+          );
+          const totalAmount = ratedExpenses.reduce(
+            (sum, e) => sum + e.amountSnapshot,
+            0
+          );
+          return totalAmount > 0 ? weightedSum / totalAmount : null;
+        })()
       : null;
 
-  // Vergleich
+  // Vergleich - auch gewichtet nach Betrag
   const comparisonAvgRating =
     comparisonInstances.length > 0
-      ? comparisonInstances.reduce(
-          (sum, e) => sum + (e.ratingValue !== null ? parseFloat(String(e.ratingValue)) : 0),
-          0
-        ) / comparisonInstances.length
+      ? (() => {
+          const weightedSum = comparisonInstances.reduce(
+            (sum, e) => {
+              const rating = e.ratingValue !== null ? parseFloat(String(e.ratingValue)) : 0;
+              const amount = parseFloat(e.amountSnapshot);
+              return sum + rating * amount;
+            },
+            0
+          );
+          const totalAmount = comparisonInstances.reduce(
+            (sum, e) => sum + parseFloat(e.amountSnapshot),
+            0
+          );
+          return totalAmount > 0 ? weightedSum / totalAmount : null;
+        })()
       : null;
 
   const ratingDiff = avgRating !== null && comparisonAvgRating !== null
