@@ -306,14 +306,14 @@ export default function StatisticsView({
 
   return (
     <>
-      <AnimatePresence>
-        <motion.div
+    <AnimatePresence>
+      <motion.div
           key="statistics-modal"
           className="fixed inset-0 z-40 flex flex-col bg-[#051F20]/90 backdrop-blur-xl"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-        >
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+      >
         <motion.div
           className="glass-panel flex w-[1086px] h-fit flex-col gap-2 sm:gap-3 p-2 sm:p-3 md:p-4 justify-center -mt-[104px] -mb-[104px] relative top-[-97px]"
           initial={{ y: 40, scale: 0.98 }}
@@ -834,7 +834,7 @@ export default function StatisticsView({
           )}
         </motion.div>
       </motion.div>
-      </AnimatePresence>
+    </AnimatePresence>
 
       {/* Popup: Ausgabenliste */}
       <AnimatePresence>

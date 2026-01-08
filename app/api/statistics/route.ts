@@ -261,7 +261,7 @@ export async function GET(req: Request) {
               const amount = parseFloat(e.amountSnapshot);
               return sum + rating * amount;
             },
-            0
+          0
           );
           const totalAmount = comparisonInstances.reduce(
             (sum, e) => sum + parseFloat(e.amountSnapshot),

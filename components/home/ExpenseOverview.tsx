@@ -188,19 +188,19 @@ export default function ExpenseOverview({
   return (
     <>
       <AnimatePresence>
-          <motion.div
+        <motion.div
             className="fixed inset-0 z-40 flex items-center justify-center bg-[#051F20]/90 backdrop-blur-xl"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+        >
+          <motion.div
+            className="glass-panel flex h-full w-full max-w-6xl flex-col gap-4 p-5 sm:h-auto sm:max-h-[90vh] sm:p-6"
+            initial={{ y: 40, scale: 0.98 }}
+            animate={{ y: 0, scale: 1 }}
+            exit={{ y: 40, scale: 0.98 }}
+            transition={{ type: "spring", stiffness: 260, damping: 26 }}
           >
-            <motion.div
-              className="glass-panel flex h-full w-full max-w-6xl flex-col gap-4 p-5 sm:h-auto sm:max-h-[90vh] sm:p-6"
-              initial={{ y: 40, scale: 0.98 }}
-              animate={{ y: 0, scale: 1 }}
-              exit={{ y: 40, scale: 0.98 }}
-              transition={{ type: "spring", stiffness: 260, damping: 26 }}
-            >
             <div className="flex items-center justify-between gap-2 border-b border-[#235347]/70 pb-4">
               <div>
                 <span className="tech-label text-[#8EB69B]">

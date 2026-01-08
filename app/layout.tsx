@@ -31,7 +31,7 @@ export default function RootLayout({
               backgroundImage: 'url(/background.jpg)',
             }}
           />
-          
+
           {/* Overlay für bessere Lesbarkeit - subtiler dunkler Overlay */}
           <div className="pointer-events-none absolute inset-0 bg-[#051F20]/30" />
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-[#051F20]/20 via-[#0B2B26]/15 to-[#051F20]/25" />

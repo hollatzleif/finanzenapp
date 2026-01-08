@@ -4,8 +4,8 @@ import { ensureCsrfToken } from "@/lib/csrf";
 
 export async function GET() {
   try {
-    // CSRF-Token immer setzen, damit das Frontend ihn lesen kann
-    await ensureCsrfToken();
+  // CSRF-Token immer setzen, damit das Frontend ihn lesen kann
+  await ensureCsrfToken();
   } catch (error) {
     console.error("CSRF-Token Fehler:", error);
     return NextResponse.json(

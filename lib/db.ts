@@ -8,15 +8,15 @@ if (!process.env.DATABASE_URL) {
 let pool: Pool;
 
 try {
-  const dbUrl = process.env.DATABASE_URL.replace(/\?schema=.*$/, "");
-  const url = new URL(dbUrl);
+const dbUrl = process.env.DATABASE_URL.replace(/\?schema=.*$/, "");
+const url = new URL(dbUrl);
 
   pool = new Pool({
-    host: url.hostname,
-    port: parseInt(url.port || "5432"),
-    database: url.pathname.slice(1), // entferne führendes /
-    user: url.username,
-    password: url.password,
+  host: url.hostname,
+  port: parseInt(url.port || "5432"),
+  database: url.pathname.slice(1), // entferne führendes /
+  user: url.username,
+  password: url.password,
     // SSL für Render und andere Cloud-Datenbanken
     ssl: process.env.NODE_ENV === "production" ? {
       rejectUnauthorized: false, // Render verwendet selbst-signierte Zertifikate
