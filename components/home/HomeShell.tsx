@@ -51,6 +51,9 @@ export default function HomeShell() {
   const [ratingOpen, setRatingOpen] = useState(false);
   const [overviewOpen, setOverviewOpen] = useState(false);
   const [statisticsOpen, setStatisticsOpen] = useState(false);
+  const [profileOpen, setProfileOpen] = useState(false);
+  const [apiKey, setApiKey] = useState<string | null>(null);
+  const [loadingApiKey, setLoadingApiKey] = useState(false);
   const [unrated, setUnrated] = useState<UnratedItem[]>([]);
   const [loadingUnrated, setLoadingUnrated] = useState(false);
   const [createError, setCreateError] = useState<string | null>(null);
@@ -287,6 +290,42 @@ export default function HomeShell() {
     window.location.href = "/auth";
   };
 
+  const loadApiKey = async () => {
+    setLoadingApiKey(true);
+    try {
+      const csrf = readCsrf();
+      if (!csrf) {
+        return;
+      }
+      const res = await fetch("/api/auth/api-key", {
+        headers: {
+          [CSRF_HEADER]: csrf,
+        } as Record<string, string>,
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setApiKey(data.apiKey);
+      }
+    } catch {
+      // Fehler ignorieren
+    } finally {
+      setLoadingApiKey(false);
+    }
+  };
+
+  const handleOpenProfile = () => {
+    setProfileOpen(true);
+    if (!apiKey) {
+      loadApiKey();
+    }
+  };
+
+  const copyApiKey = () => {
+    if (apiKey) {
+      navigator.clipboard.writeText(apiKey);
+    }
+  };
+
   return (
     <div className="flex flex-col gap-6">
       {/* Top Bar */}
@@ -318,6 +357,12 @@ export default function HomeShell() {
               {loadingSummary ? "Lädt …" : monthSummaryLabel}
             </div>
           </div>
+          <button
+            onClick={handleOpenProfile}
+            className="hidden rounded-xl border border-[#235347]/80 bg-[#163832]/80 px-3 py-2 text-[10px] uppercase tracking-[0.16em] text-[#8EB69B] hover:border-[#8EB69B]/80 hover:text-[#DAF1DE] sm:block"
+          >
+            PROFIL
+          </button>
           <button
             onClick={handleLogout}
             className="hidden rounded-xl border border-[#235347]/80 bg-[#163832]/80 px-3 py-2 text-[10px] uppercase tracking-[0.16em] text-[#8EB69B] hover:border-[#8EB69B]/80 hover:text-[#DAF1DE] sm:block"
@@ -738,6 +783,97 @@ export default function HomeShell() {
           reloadSummary();
         }}
       />
+
+      {/* Profil-Modal */}
+      <AnimatePresence>
+        {profileOpen && (
+          <motion.div
+            className="fixed inset-0 z-40 flex items-center justify-center bg-[#051F20]/90 backdrop-blur-xl"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <motion.div
+              className="glass-panel flex w-full max-w-md flex-col gap-4 p-5 sm:p-6"
+              initial={{ y: 40, scale: 0.98 }}
+              animate={{ y: 0, scale: 1 }}
+              exit={{ y: 40, scale: 0.98 }}
+              transition={{ type: "spring", stiffness: 260, damping: 26 }}
+            >
+              <div className="flex items-center justify-between gap-2">
+                <div>
+                  <span className="tech-label text-[#8EB69B]">PROFIL</span>
+                  <p className="mt-1 text-xs text-[#DAF1DE]">
+                    Dein API-Key für externe Ausgaben
+                  </p>
+                </div>
+                <button
+                  onClick={() => setProfileOpen(false)}
+                  className="rounded-full border border-[#235347]/80 bg-[#163832]/80 px-2 py-1 text-[10px] uppercase tracking-[0.18em] text-[#8EB69B] hover:border-[#8EB69B]/80 hover:text-[#DAF1DE]"
+                >
+                  SCHLIESSEN
+                </button>
+              </div>
+
+              <div className="rounded-2xl border border-[#235347]/80 bg-[#163832]/80 px-4 py-3">
+                <span className="tech-label text-[#8EB69B] text-xs">
+                  API-KEY
+                </span>
+                {loadingApiKey ? (
+                  <p className="mt-2 text-sm text-[#8EB69B]">Lade …</p>
+                ) : apiKey ? (
+                  <div className="mt-2 flex items-center gap-2">
+                    <code className="flex-1 break-all rounded-lg border border-[#235347]/80 bg-[#051F20]/80 px-3 py-2 text-xs text-[#DAF1DE]">
+                      {apiKey}
+                    </code>
+                    <button
+                      onClick={copyApiKey}
+                      className="rounded-lg border border-[#8EB69B]/80 bg-[#8EB69B]/20 px-3 py-2 text-[10px] uppercase tracking-[0.16em] text-[#DAF1DE] hover:bg-[#8EB69B]/30"
+                    >
+                      KOPIEREN
+                    </button>
+                  </div>
+                ) : (
+                  <p className="mt-2 text-sm text-[#8EB69B]">
+                    Fehler beim Laden des API-Keys.
+                  </p>
+                )}
+              </div>
+
+              <div className="rounded-2xl border border-[#235347]/80 bg-[#163832]/80 px-4 py-3">
+                <span className="tech-label text-[#8EB69B] text-xs mb-2 block">
+                  VERWENDUNG
+                </span>
+                <p className="text-xs text-[#DAF1DE] mb-2">
+                  Sende POST-Requests an:
+                </p>
+                <code className="block break-all rounded-lg border border-[#235347]/80 bg-[#051F20]/80 px-3 py-2 text-[10px] text-[#8EB69B] mb-2">
+                  /api/expenses/external
+                </code>
+                <p className="text-xs text-[#DAF1DE] mb-2">
+                  Header:
+                </p>
+                <code className="block break-all rounded-lg border border-[#235347]/80 bg-[#051F20]/80 px-3 py-2 text-[10px] text-[#8EB69B] mb-2">
+                  x-api-key: {apiKey ? apiKey.substring(0, 20) + "..." : "DEIN_API_KEY"}
+                </code>
+                <p className="text-xs text-[#DAF1DE] mb-2">
+                  Body (JSON) - Unterstützt deutsches Format:
+                </p>
+                <code className="block rounded-lg border border-[#235347]/80 bg-[#051F20]/80 px-3 py-2 text-[10px] text-[#8EB69B] whitespace-pre">
+{`{
+  "amount": "7,00€",
+  "purpose": " döner",
+  "captured_at": "08.01.2026, 14:50"
+}`}
+                </code>
+                <p className="text-[10px] text-[#8EB69B] mt-2">
+                  Auch möglich: amount als Zahl (7.40) oder ISO-Datum
+                </p>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

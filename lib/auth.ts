@@ -1,5 +1,5 @@
 import { cookies, headers } from "next/headers";
-import { randomUUID } from "crypto";
+import { randomUUID, randomBytes } from "crypto";
 import { query, queryOne } from "./db";
 import { z } from "zod";
 
@@ -24,6 +24,12 @@ export function validateUsername(username: string) {
   return usernameSchema.parse(username);
 }
 
+export function generateApiKey(): string {
+  // Generiere einen sicheren API-Key: 32 Bytes Base64-encoded
+  const bytes = randomBytes(32);
+  return `fin_${bytes.toString("base64url")}`;
+}
+
 export async function createUser(username: string) {
   const valid = validateUsername(username);
   const existing = await queryOne<{ id: string }>(
@@ -34,11 +40,56 @@ export async function createUser(username: string) {
     throw new Error("Benutzername ist bereits vergeben.");
   }
   const id = randomUUID();
+  const apiKey = generateApiKey();
   await query(
-    'INSERT INTO "User" (id, username, "createdAt") VALUES ($1, $2, NOW())',
-    [id, valid]
+    'INSERT INTO "User" (id, username, "apiKey", "createdAt") VALUES ($1, $2, $3, NOW())',
+    [id, valid, apiKey]
   );
-  return { id, username: valid };
+  return { id, username: valid, apiKey };
+}
+
+export async function getUserByApiKey(apiKey: string) {
+  return queryOne<{ id: string; username: string }>(
+    'SELECT id, username FROM "User" WHERE "apiKey" = $1',
+    [apiKey]
+  );
+}
+
+export async function getOrCreateApiKey(userId: string): Promise<string> {
+  const user = await queryOne<{ apiKey: string | null }>(
+    'SELECT "apiKey" FROM "User" WHERE id = $1',
+    [userId]
+  );
+  
+  if (!user) {
+    throw new Error("Benutzer nicht gefunden.");
+  }
+  
+  if (user.apiKey) {
+    return user.apiKey;
+  }
+  
+  // Generiere neuen API-Key falls keiner existiert
+  let apiKey: string;
+  let attempts = 0;
+  do {
+    apiKey = generateApiKey();
+    const existing = await queryOne<{ id: string }>(
+      'SELECT id FROM "User" WHERE "apiKey" = $1',
+      [apiKey]
+    );
+    if (!existing) {
+      await query(
+        'UPDATE "User" SET "apiKey" = $1 WHERE id = $2',
+        [apiKey, userId]
+      );
+      return apiKey;
+    }
+    attempts++;
+    if (attempts > 10) {
+      throw new Error("Konnte keinen eindeutigen API-Key generieren.");
+    }
+  } while (true);
 }
 
 export async function findUserByUsername(username: string) {
@@ -123,6 +174,14 @@ export async function getCurrentUser() {
     username: session.username,
     sessionId: session.sessionId,
   };
+}
+
+export async function getUserWithApiKey(userId: string) {
+  const user = await queryOne<{ id: string; username: string; apiKey: string | null }>(
+    'SELECT id, username, "apiKey" FROM "User" WHERE id = $1',
+    [userId]
+  );
+  return user;
 }
 
 // Einfache In-Memory-Rate-Limiting-Strategie pro IP für Auth-Routen
