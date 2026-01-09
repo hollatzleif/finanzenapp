@@ -359,6 +359,12 @@ export default function HomeShell() {
               {loadingSummary ? "Lädt …" : monthSummaryLabel}
             </div>
           </div>
+          <a
+            href="/"
+            className="hidden rounded-xl border border-[#235347]/80 bg-[#163832]/80 px-3 py-2 text-[10px] uppercase tracking-[0.16em] text-[#8EB69B] hover:border-[#8EB69B]/80 hover:text-[#DAF1DE] sm:block"
+          >
+            HAUPTMENÜ
+          </a>
           <button
             onClick={handleOpenProfile}
             className="hidden rounded-xl border border-[#235347]/80 bg-[#163832]/80 px-3 py-2 text-[10px] uppercase tracking-[0.16em] text-[#8EB69B] hover:border-[#8EB69B]/80 hover:text-[#DAF1DE] sm:block"

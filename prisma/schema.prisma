@@ -12,11 +12,17 @@ model User {
   username  String   @unique
   apiKey    String?  @unique
   createdAt DateTime @default(now())
+  
+  // Lernen
+  level     Int      @default(1)
+  progress  Int      @default(0)
+  lCoins    Decimal  @default(0) @db.Decimal(10, 2)
 
   sessions          Session[]
   expenseDefinitions ExpenseDefinition[]
   expenseInstances   ExpenseInstance[]
   resolutions       Resolution[]
+  timer             Timer?
 }
 
 model Session {
@@ -144,5 +150,31 @@ model Resolution {
   maxAffectivePeriod   ResolutionPeriod?
 
   @@index([userId, monthKey])
+  @@index([userId])
+}
+
+enum TimerMode {
+  SHORT  // 25/5
+  LONG   // 50/10
+}
+
+enum TimerPhase {
+  LEARN
+  PAUSE
+}
+
+model Timer {
+  id                String     @id @default(uuid())
+  userId            String     @unique
+  user              User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  mode              TimerMode
+  startTime         DateTime
+  currentPhase      TimerPhase
+  phaseStartTime    DateTime
+  totalElapsedSeconds Int      @default(0)
+  learnSeconds      Int        @default(0)
+  createdAt         DateTime   @default(now())
+  updatedAt         DateTime   @updatedAt
+
   @@index([userId])
 }
