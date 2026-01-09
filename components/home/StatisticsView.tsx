@@ -98,6 +98,8 @@ export default function StatisticsView({
   const [periodKey, setPeriodKey] = useState<string>("");
   const [data, setData] = useState<StatisticsData | null>(null);
   const [loading, setLoading] = useState(false);
+  const [resolutionsMet, setResolutionsMet] = useState<number | null>(null);
+  const [resolutionsTotal, setResolutionsTotal] = useState<number | null>(null);
 
   // Rechenmodul 1: Bewertungs-Schwelle
   const [threshold, setThreshold] = useState(5);
@@ -126,8 +128,34 @@ export default function StatisticsView({
   useEffect(() => {
     if (isOpen && periodKey) {
       loadData(periodType, periodKey);
+      if (periodType === "month") {
+        loadResolutionsMet(periodKey);
+      } else {
+        setResolutionsMet(null);
+        setResolutionsTotal(null);
+      }
     }
   }, [periodKey, periodType]);
+
+  const loadResolutionsMet = async (monthKey: string) => {
+    try {
+      const [statusRes, resolutionsRes] = await Promise.all([
+        fetch(`/api/resolutions/status?monthKey=${monthKey}`),
+        fetch(`/api/resolutions?monthKey=${monthKey}`),
+      ]);
+      
+      if (statusRes.ok && resolutionsRes.ok) {
+        const statuses = await statusRes.json();
+        const resolutions = await resolutionsRes.json();
+        const met = statuses.filter((s: { isMet: boolean }) => s.isMet).length;
+        setResolutionsMet(met);
+        setResolutionsTotal(resolutions.length);
+      }
+    } catch {
+      setResolutionsMet(null);
+      setResolutionsTotal(null);
+    }
+  };
 
   const loadData = async (type: "month" | "week", key: string) => {
     setLoading(true);
@@ -557,6 +585,18 @@ export default function StatisticsView({
                   </span>
                   <span className="text-[10px] sm:text-xs font-semibold text-[#DAF1DE]">
                     Ø Bewertung: {data.avgRating.toFixed(2)}
+                  </span>
+                </div>
+              )}
+
+              {/* Eingehaltene Vorsätze */}
+              {periodType === "month" && resolutionsMet !== null && resolutionsTotal !== null && resolutionsTotal > 0 && (
+                <div className="rounded-lg sm:rounded-xl border border-[#235347]/80 bg-[#163832]/80 p-1.5 sm:p-2 flex flex-col justify-center">
+                  <span className="tech-label text-[#8EB69B] mb-0.5 sm:mb-1 block text-[8px] sm:text-[9px]">
+                    EINGEHALTENE VORSÄTZE
+                  </span>
+                  <span className="text-[10px] sm:text-xs font-semibold text-[#DAF1DE]">
+                    {resolutionsMet}/{resolutionsTotal}
                   </span>
                 </div>
               )}

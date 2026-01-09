@@ -16,6 +16,7 @@ model User {
   sessions          Session[]
   expenseDefinitions ExpenseDefinition[]
   expenseInstances   ExpenseInstance[]
+  resolutions       Resolution[]
 }
 
 model Session {
@@ -96,3 +97,52 @@ model ExpenseInstance {
   @@unique([definitionId, chargedAt])
 }
 
+enum ResolutionType {
+  UNDER_AMOUNT_FOR_RATING
+  TARGET_AVG_RATING
+  LESS_THAN_LAST_MONTH
+  NO_AFFECTIVE_ABOVE_AMOUNT
+  MAX_AFFECTIVE_PER_PERIOD
+}
+
+enum ResolutionUnit {
+  EURO
+  PERCENT
+}
+
+enum ResolutionPeriod {
+  WEEK
+  MONTH
+}
+
+model Resolution {
+  id          String   @id @default(uuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type        ResolutionType
+  monthKey    String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  // Unter X €/% für Ausgaben unter Y Bewertung
+  amountThreshold     Decimal?  @db.Decimal(10, 2)
+  ratingThreshold      Decimal?  @db.Decimal(4, 2)
+  unit                 ResolutionUnit?
+  
+  // Angestrebte Durchschnittsbewertung
+  targetAvgRating      Decimal?  @db.Decimal(4, 2)
+  
+  // X €/% weniger als letzten Monat
+  reductionAmount      Decimal?  @db.Decimal(10, 2)
+  reductionUnit        ResolutionUnit?
+  
+  // Keine affektive Ausgabe über X €
+  maxAffectiveAmount   Decimal?  @db.Decimal(10, 2)
+  
+  // Maximal X affektive Ausgaben pro Woche/Monat
+  maxAffectiveCount    Int?
+  maxAffectivePeriod   ResolutionPeriod?
+
+  @@index([userId, monthKey])
+  @@index([userId])
+}

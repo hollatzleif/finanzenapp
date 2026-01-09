@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import ExpenseOverview from "./ExpenseOverview";
 import StatisticsView from "./StatisticsView";
+import ResolutionsView from "./ResolutionsView";
 
 const CSRF_HEADER = "x-csrf-token";
 
@@ -51,6 +52,7 @@ export default function HomeShell() {
   const [ratingOpen, setRatingOpen] = useState(false);
   const [overviewOpen, setOverviewOpen] = useState(false);
   const [statisticsOpen, setStatisticsOpen] = useState(false);
+  const [resolutionsOpen, setResolutionsOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
   const [apiKey, setApiKey] = useState<string | null>(null);
   const [loadingApiKey, setLoadingApiKey] = useState(false);
@@ -411,6 +413,12 @@ export default function HomeShell() {
               className="inline-flex items-center justify-center rounded-2xl border border-[#8EB69B]/70 bg-[#8EB69B]/10 px-3.5 py-2 text-xs font-semibold uppercase tracking-[0.21em] text-[#DAF1DE] hover:bg-[#8EB69B]/20"
             >
               STATISTIKEN
+            </button>
+            <button
+              onClick={() => setResolutionsOpen(true)}
+              className="inline-flex items-center justify-center rounded-2xl border border-[#8EB69B]/70 bg-[#8EB69B]/10 px-3.5 py-2 text-xs font-semibold uppercase tracking-[0.21em] text-[#DAF1DE] hover:bg-[#8EB69B]/20"
+            >
+              VORSÄTZE
             </button>
           </div>
         </div>
@@ -784,6 +792,15 @@ export default function HomeShell() {
         }}
       />
 
+      {/* Vorsätze */}
+      <ResolutionsView
+        isOpen={resolutionsOpen}
+        onClose={() => setResolutionsOpen(false)}
+        onRefresh={() => {
+          reloadSummary();
+        }}
+      />
+
       {/* Profil-Modal */}
       <AnimatePresence>
         {profileOpen && (
@@ -838,37 +855,6 @@ export default function HomeShell() {
                     Fehler beim Laden des API-Keys.
                   </p>
                 )}
-              </div>
-
-              <div className="rounded-2xl border border-[#235347]/80 bg-[#163832]/80 px-4 py-3">
-                <span className="tech-label text-[#8EB69B] text-xs mb-2 block">
-                  VERWENDUNG
-                </span>
-                <p className="text-xs text-[#DAF1DE] mb-2">
-                  Sende POST-Requests an:
-                </p>
-                <code className="block break-all rounded-lg border border-[#235347]/80 bg-[#051F20]/80 px-3 py-2 text-[10px] text-[#8EB69B] mb-2">
-                  /api/expenses/external
-                </code>
-                <p className="text-xs text-[#DAF1DE] mb-2">
-                  Header:
-                </p>
-                <code className="block break-all rounded-lg border border-[#235347]/80 bg-[#051F20]/80 px-3 py-2 text-[10px] text-[#8EB69B] mb-2">
-                  x-api-key: {apiKey ? apiKey.substring(0, 20) + "..." : "DEIN_API_KEY"}
-                </code>
-                <p className="text-xs text-[#DAF1DE] mb-2">
-                  Body (JSON) - Unterstützt deutsches Format:
-                </p>
-                <code className="block rounded-lg border border-[#235347]/80 bg-[#051F20]/80 px-3 py-2 text-[10px] text-[#8EB69B] whitespace-pre">
-{`{
-  "amount": "7,00€",
-  "purpose": " döner",
-  "captured_at": "08.01.2026, 14:50"
-}`}
-                </code>
-                <p className="text-[10px] text-[#8EB69B] mt-2">
-                  Auch möglich: amount als Zahl (7.40) oder ISO-Datum
-                </p>
               </div>
             </motion.div>
           </motion.div>
